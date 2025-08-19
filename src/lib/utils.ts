@@ -5,17 +5,17 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatDate(date: Date | string, locale: string = 'pt-BR'): string {
+export function formatDate(date: Date | string): string {
   const dateObj = typeof date === 'string' ? new Date(date) : date;
   
-  return new Intl.DateTimeFormat(locale, {
+  return new Intl.DateTimeFormat('pt-BR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   }).format(dateObj);
 }
 
-export function formatDateRelative(date: Date | string, locale: string = 'pt-BR'): string {
+export function formatDateRelative(date: Date | string): string {
   const dateObj = typeof date === 'string' ? new Date(date) : date;
   const now = new Date();
   const diffInSeconds = Math.floor((now.getTime() - dateObj.getTime()) / 1000);
@@ -115,14 +115,14 @@ export function copyToClipboard(text: string): Promise<boolean> {
         document.execCommand('copy');
         textArea.remove();
         resolve(true);
-      } catch (error) {
+      } catch {
         resolve(false);
       }
     }
   });
 }
 
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number
 ): (...args: Parameters<T>) => void {
@@ -134,7 +134,7 @@ export function debounce<T extends (...args: any[]) => any>(
   };
 }
 
-export function throttle<T extends (...args: any[]) => any>(
+export function throttle<T extends (...args: unknown[]) => unknown>(
   func: T,
   limit: number
 ): (...args: Parameters<T>) => void {
@@ -204,8 +204,8 @@ export function generateReadingTime(content: string): number {
   return Math.ceil(words / wordsPerMinute);
 }
 
-export function formatNumber(num: number, locale: string = 'pt-BR'): string {
-  return new Intl.NumberFormat(locale).format(num);
+export function formatNumber(num: number): string {
+  return new Intl.NumberFormat('pt-BR').format(num);
 }
 
 export function randomBetween(min: number, max: number): number {

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 
 export const ThemeToggle = () => {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -21,18 +21,20 @@ export const ThemeToggle = () => {
     );
   }
 
+  const isDark = resolvedTheme === 'dark';
+
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
       className="relative overflow-hidden"
     >
       <Sun className={`h-5 w-5 transition-all duration-300 ${
-        theme === 'dark' ? 'rotate-90 scale-0' : 'rotate-0 scale-100'
+        isDark ? 'rotate-90 scale-0' : 'rotate-0 scale-100'
       }`} />
       <Moon className={`absolute h-5 w-5 transition-all duration-300 ${
-        theme === 'dark' ? 'rotate-0 scale-100' : '-rotate-90 scale-0'
+        isDark ? 'rotate-0 scale-100' : '-rotate-90 scale-0'
       }`} />
       <span className="sr-only">Alternar tema</span>
     </Button>

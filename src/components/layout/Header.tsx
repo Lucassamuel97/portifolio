@@ -53,7 +53,7 @@ export const Header = () => {
               className="flex items-center space-x-2 text-xl font-bold text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
             >
               <Code2 className="h-8 w-8 text-primary-600 dark:text-primary-400" />
-              <span className="hidden sm:block">SamucaDev</span>
+              <span >SamucaDev</span>
             </button>
           </motion.div>
 
