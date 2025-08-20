@@ -50,8 +50,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-jetbrains-mono)', 'monospace'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
