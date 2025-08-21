@@ -1,4 +1,6 @@
-import { PersonalInfo, NavigationItem, SocialLink, Education, Experience } from "@/types/index";
+import { PersonalInfo, NavigationItem, SocialLink, Education, Experience, Skill } from "@/types/index";
+import { MonitorCog } from "lucide-react";
+import { cursorTo } from "readline";
 
 export const personalInfo: PersonalInfo = {
   name: "Lucas Samuel Pereira Godoy",
@@ -154,5 +156,499 @@ export const experiences: Experience[] = [
       'Sistemas de Gestão', 'Controle de Estoque', 'Gestão de Dados'
     ],
     type: 'full-time'
+  }
+];
+
+export const skills: Skill[] = [
+  // Frontend
+  {
+    id: '1',
+    name: 'HTML5',
+    category: 'frontend',
+    level: 95,
+    icon: 'html5',
+    experience: '6 anos'
+  },
+  {
+    id: '2',
+    name: 'CSS3',
+    category: 'frontend',
+    level: 90,
+    icon: 'css3',
+    experience: '6 anos'
+  },
+  {
+    id: '3',
+    name: 'JavaScript',
+    category: 'frontend',
+    level: 90,
+    icon: 'javascript',
+    experience: '6 anos',
+    projects: ['project-1', 'project-2', 'project-3']
+  },
+  {
+    id: '4',
+    name: 'TypeScript',
+    category: 'frontend',
+    level: 80,
+    icon: 'typescript',
+    experience: '2 anos',
+    projects: ['project-1', 'project-2']
+  },
+  {
+    id: '5',
+    name: 'React',
+    category: 'frontend',
+    level: 80,
+    icon: 'react',
+    experience: '2 anos',
+    projects: ['project-1', 'project-2']
+  },
+  {
+    id: '6',
+    name: 'Next.js',
+    category: 'frontend',
+    level: 85,
+    icon: 'nextjs',
+    experience: '2 anos',
+    projects: ['project-1', 'project-2']
+  },
+  {
+    id: '7',
+    name: 'jQuery',
+    category: 'frontend',
+    level: 85,
+    icon: 'jquery',
+    experience: '6 anos',
+    projects: ['project-1', 'project-2', 'project-3']
+  },
+  {
+    id: '8',
+    name: 'Bootstrap',
+    category: 'frontend',
+    level: 92,
+    icon: 'bootstrap',
+    experience: '6 anos',
+    projects: ['project-1', 'project-2', 'project-3']
+  },
+  {
+    id: '9',
+    name: 'Tailwind CSS',
+    category: 'frontend',
+    level: 85,
+    icon: 'tailwind',
+    experience: '2 anos',
+    projects: ['project-1', 'project-2']
+  },
+  {
+    id: '10',
+    name: 'Material UI',
+    category: 'frontend',
+    level: 54,
+    icon: 'materialui',
+    experience: '1 ano',
+    projects: ['project-1', 'project-2']
+  },
+  {
+    id: '11',
+    name: 'Sass/SCSS',
+    category: 'frontend',
+    level: 75,
+    icon: 'sass',
+    experience: '3 anos'
+  },
+  {
+    id: '12',
+    name: 'Vue.js',
+    category: 'frontend',
+    level: 45,
+    icon: 'vuejs',
+    experience: '6 meses'
+  },
+
+  // Backend
+  {
+    id: '13',
+    name: 'PHP',
+    category: 'backend',
+    level: 95,
+    icon: 'php',
+    experience: '6 anos',
+    projects: ['project-1', 'project-2', 'project-3']
+  },
+  {
+    id: '14',
+    name: 'Laravel',
+    category: 'backend',
+    level: 95,
+    icon: 'laravel',
+    experience: '4 anos',
+    projects: ['project-1', 'project-2']
+  },
+  {
+    id: '15',
+    name: 'CodeIgniter',
+    category: 'backend',
+    level: 75,
+    icon: 'codeigniter',
+    experience: '4 anos',
+    projects: ['project-1', 'project-3']
+  },
+  {
+    id: '16',
+    name: 'Java',
+    category: 'backend',
+    level: 75,
+    icon: 'java',
+    experience: '1 ano',
+    projects: ['project-4']
+  },
+  {
+    id: '17',
+    name: 'Spring Boot',
+    category: 'backend',
+    level: 85,
+    icon: 'springboot',
+    experience: '1 ano',
+    projects: ['project-4']
+  },
+  {
+    id: '18',
+    name: 'Node.js',
+    category: 'backend',
+    level: 60,
+    icon: 'nodejs',
+    experience: '1 ano'
+  },
+  {
+    id: '19',
+    name: 'Express.js',
+    category: 'backend',
+    level: 55,
+    icon: 'express',
+    experience: '1 ano'
+  },
+  {
+    id: '20',
+    name: 'REST APIs',
+    category: 'backend',
+    level: 90,
+    icon: 'api',
+    experience: '4 anos',
+    projects: ['project-1', 'project-2', 'project-3']
+  },
+  {
+    id: '21',
+    name: 'Composer',
+    category: 'backend',
+    level: 85,
+    icon: 'composer',
+    experience: '4 anos'
+  },
+
+  // Database
+  {
+    id: '22',
+    name: 'MySQL',
+    category: 'database',
+    level: 98,
+    icon: 'mysql',
+    experience: '6 anos',
+    projects: ['project-1', 'project-2', 'project-3']
+  },
+  {
+    id: '23',
+    name: 'PostgreSQL',
+    category: 'database',
+    level: 80,
+    icon: 'postgresql',
+    experience: '2 anos',
+    projects: ['project-1', 'project-2']
+  },
+  {
+    id: '24',
+    name: 'MongoDB',
+    category: 'database',
+    level: 50,
+    icon: 'mongodb',
+    experience: '1 ano',
+    projects: ['project-4']
+  },
+  {
+    id: '25',
+    name: 'Firebase',
+    category: 'database',
+    level: 60,
+    icon: 'firebase',
+    experience: '1 ano',
+    projects: ['project-5']
+  },
+  {
+    id: '26',
+    name: 'Redis',
+    category: 'database',
+    level: 55,
+    icon: 'redis',
+    experience: '1 ano'
+  },
+  {
+    id: '27',
+    name: 'SQL',
+    category: 'database',
+    level: 95,
+    icon: 'sql',
+    experience: '6 anos',
+    projects: ['project-1', 'project-2', 'project-3']
+  },
+
+  // Mobile
+  {
+    id: '28',
+    name: 'Ionic',
+    category: 'mobile',
+    level: 50,
+    icon: 'ionic',
+    experience: '1 ano',
+    projects: ['project-5']
+  },
+  {
+    id: '29',
+    name: 'Flutter',
+    category: 'mobile',
+    level: 30,
+    icon: 'flutter',
+    experience: '6 meses',
+    projects: ['project-5']
+  },
+
+  // DevOps
+  {
+    id: '30',
+    name: 'Docker',
+    category: 'devops',
+    level: 80,
+    icon: 'docker',
+    experience: '1 ano'
+  },
+  {
+    id: '31',
+    name: 'GitHub Actions',
+    category: 'devops',
+    level: 70,
+    icon: 'githubactions',
+    experience: '1 ano'
+  },
+  {
+    id: '32',
+    name: 'Travis CI',
+    category: 'devops',
+    level: 60,
+    icon: 'travis',
+    experience: '1 ano'
+  },
+  {
+    id: '33',
+    name: 'CI/CD',
+    category: 'devops',
+    level: 70,
+    icon: 'cicd',
+    experience: '1 ano'
+  },
+  {
+    id: '34',
+    name: 'RabbitMQ',
+    category: 'devops',
+    level: 75,
+    icon: 'rabbitmq',
+    experience: '1 ano'
+  },
+  {
+    id: '35',
+    name: 'AWS',
+    category: 'devops',
+    level: 40,
+    icon: 'aws',
+    experience: '1 ano'
+  },
+  {
+    id: '36',
+    name: 'Linux',
+    category: 'devops',
+    level: 80,
+    icon: 'linux',
+    experience: '4 anos'
+  },
+  {
+    id: '37',
+    name: 'Apache',
+    category: 'devops',
+    level: 75,
+    icon: 'apache',
+    experience: '3 anos'
+  },
+  {
+    id: '38',
+    name: 'Nginx',
+    category: 'devops',
+    level: 45,
+    icon: 'nginx',
+    experience: '1 anos'
+  },
+
+  // Tools
+  {
+    id: '39',
+    name: 'Git',
+    category: 'tools',
+    level: 85,
+    icon: 'git',
+    experience: '6 anos'
+  },
+  {
+    id: '40',
+    name: 'Visual Studio Code',
+    category: 'tools',
+    level: 85,
+    icon: 'vscode',
+    experience: '3 anos'
+  },
+  {
+    id: '41',
+    name: 'Cursor',
+    category: 'tools',
+    level: 85,
+    icon: 'cursor',
+    experience: '1 ano'
+  },
+  {
+    id: '42',
+    name: 'Postman',
+    category: 'tools',
+    level: 80,
+    icon: 'postman',
+    experience: '2 anos'
+  },
+  {
+    id: '43',
+    name: 'Figma',
+    category: 'tools',
+    level: 60,
+    icon: 'figma',
+    experience: '1 ano'
+  },
+  {
+    id: '44',
+    name: 'Swagger',
+    category: 'tools',
+    level: 70,
+    icon: 'swagger',
+    experience: '1 ano'
+  },
+  {
+    id: '45',
+    name: 'Trello',
+    category: 'tools',
+    level: 90,
+    icon: 'trello',
+    experience: '6 anos'
+  },
+  {
+    id: '46',
+    name: 'ESLint',
+    category: 'tools',
+    level: 75,
+    icon: 'eslint',
+    experience: '2 anos'
+  },
+  {
+    id: '47',
+    name: 'Prettier',
+    category: 'tools',
+    level: 80,
+    icon: 'prettier',
+    experience: '2 anos'
+  },
+  {
+    id: '48',
+    name: 'Webpack',
+    category: 'tools',
+    level: 60,
+    icon: 'webpack',
+    experience: '1 ano'
+  },
+  {
+    id: '49',
+    name: 'Vite',
+    category: 'tools',
+    level: 70,
+    icon: 'vite',
+    experience: '1 ano'
+  },
+
+  // Arquitetura & Metodologias
+  {
+    id: '51',
+    name: 'DDD',
+    category: 'other',
+    level: 90,
+    icon: 'ddd',
+    experience: '3 anos'
+  },
+  {
+    id: '52',
+    name: 'Clean Architecture',
+    category: 'other',
+    level: 85,
+    icon: 'cleanarchitecture',
+    experience: '3 anos'
+  },
+  {
+    id: '53',
+    name: 'Microservices',
+    category: 'other',
+    level: 60,
+    icon: 'microservices',
+    experience: '1 ano'
+  },
+  {
+    id: '54',
+    name: 'GraphQL',
+    category: 'other',
+    level: 50,
+    icon: 'graphql',
+    experience: '6 meses',
+    projects: ['project-6']
+  },
+  {
+    id: '55',
+    name: 'PHPUnit',
+    category: 'other',
+    level: 70,
+    icon: 'phpunit',
+    experience: '2 anos'
+  },
+  {
+    id: '56',
+    name: 'Jest',
+    category: 'other',
+    level: 65,
+    icon: 'jest',
+    experience: '1 ano'
+  },
+  {
+    id: '57',
+    name: 'API Gateway',
+    category: 'other',
+    level: 55,
+    icon: 'apigateway',
+    experience: '1 ano'
+  },
+  {
+    id: '58',
+    name: 'SOLID Principles',
+    category: 'other',
+    level: 85,
+    icon: 'solid',
+    experience: '3 anos'
   }
 ];
