@@ -1,42 +1,44 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useTheme } from 'next-themes';
+import { useCallback } from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { useClientTheme } from '@/hooks/useClientTheme';
 
 export const ThemeToggle = () => {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { mounted, setTheme, isDark } = useClientTheme();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const handleThemeToggle = useCallback(() => {
+    const newTheme = isDark ? 'light' : 'dark';
+    setTheme(newTheme);
+  }, [isDark, setTheme]);
 
-  if (!mounted) {
-    return (
-      <Button variant="ghost" size="icon">
-        <Sun className="h-5 w-5" />
-      </Button>
-    );
-  }
-
-  const isDark = resolvedTheme === 'dark';
-
+  // Sempre renderizar o mesmo HTML inicial para evitar hidratação mismatch
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="relative overflow-hidden"
+      onClick={handleThemeToggle}
+      className="relative overflow-hidden transition-all duration-300 hover:scale-110"
+      aria-label={mounted ? `Alternar para tema ${isDark ? 'claro' : 'escuro'}` : 'Alternador de tema'}
+      disabled={!mounted}
     >
-      <Sun className={`h-5 w-5 transition-all duration-300 ${
-        isDark ? 'rotate-90 scale-0' : 'rotate-0 scale-100'
-      }`} />
-      <Moon className={`absolute h-5 w-5 transition-all duration-300 ${
-        isDark ? 'rotate-0 scale-100' : '-rotate-90 scale-0'
-      }`} />
-      <span className="sr-only">Alternar tema</span>
+      <Sun 
+        className={`h-5 w-5 transition-all duration-500 ease-in-out ${
+          mounted && isDark ? 'rotate-90 scale-0 opacity-0' : 'rotate-0 scale-100 opacity-100'
+        }`} 
+      />
+      <Moon 
+        className={`absolute h-5 w-5 transition-all duration-500 ease-in-out ${
+          mounted && isDark ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-0 opacity-0'
+        }`} 
+      />
+      <span className="sr-only">
+        {mounted 
+          ? (isDark ? 'Mudar para tema claro' : 'Mudar para tema escuro')
+          : 'Carregando tema'
+        }
+      </span>
     </Button>
   );
 };

@@ -12,6 +12,7 @@ import { cn, smoothScrollTo } from '@/lib/utils';
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const activeSection = useScrollspy(navigationItems.map(item => item.href.slice(1)), 100);
 
   useEffect(() => {
@@ -19,8 +20,20 @@ export const Header = () => {
       setIsScrolled(window.scrollY > 20);
     };
 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Verificar tamanho inicial
+    handleResize();
+    
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const handleNavClick = (href: string) => {
@@ -35,7 +48,7 @@ export const Header = () => {
       animate={{ y: 0 }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled 
+        isScrolled || (isMobile && isOpen)
           ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200/20 dark:border-gray-700/20 shadow-lg' 
           : 'bg-transparent'
       )}
@@ -53,7 +66,7 @@ export const Header = () => {
               className="flex items-center space-x-2 text-xl font-bold text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
             >
               <Code2 className="h-8 w-8 text-primary-600 dark:text-primary-400" />
-              <span >SamucaDev</span>
+              <span className="text-primary-900 dark:text-white">SamucaDev</span>
             </button>
           </motion.div>
 

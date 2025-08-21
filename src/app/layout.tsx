@@ -30,9 +30,10 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange={false}
+          storageKey="portfolio-theme"
         >
           {children}
         </ThemeProvider>

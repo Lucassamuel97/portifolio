@@ -57,6 +57,190 @@
   animation: gradient-x 3s ease-in-out infinite;
 }
 
+.gradient-text-dark {
+  @apply bg-gradient-to-r from-primary-600 via-primary-900 to-primary-600 bg-clip-text text-transparent;
+  background-size: 200% auto;
+  animation: gradient-x 3s ease-in-out infinite;
+}
+
+
+/* Efeitos futuristas */
+@keyframes gridMove {
+  0% { 
+    transform: translate(0, 0); 
+  }
+  100% { 
+    transform: translate(50px, 50px); 
+  }
+}
+
+@keyframes matrixRain {
+  0% { 
+    transform: translateY(-100vh); 
+    opacity: 0; 
+  }
+  10% { 
+    opacity: 1; 
+  }
+  90% { 
+    opacity: 1; 
+  }
+  100% { 
+    transform: translateY(100vh); 
+    opacity: 0; 
+  }
+}
+
+@keyframes particleFloat {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+    opacity: 0.6; 
+  }
+  50% { 
+    transform: translateY(-20px) rotate(180deg); 
+    opacity: 1; 
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); 
+    transform: scale(1); 
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(34, 197, 94, 0.6); 
+    transform: scale(1.05); 
+  }
+}
+
+@keyframes neuralPulse {
+  0% { 
+    stroke-dasharray: 0 100; 
+    opacity: 0; 
+  }
+  50% { 
+    stroke-dasharray: 50 100; 
+    opacity: 1; 
+  }
+  100% { 
+    stroke-dasharray: 100 100; 
+    opacity: 0; 
+  }
+}
+
+@keyframes hologramScan {
+  0% { 
+    transform: translateX(-100%); 
+  }
+  100% { 
+    transform: translateX(100vw); 
+  }
+}
+
+@keyframes quantumShift {
+  0%, 100% { 
+    filter: hue-rotate(0deg) brightness(1); 
+  }
+  25% { 
+    filter: hue-rotate(90deg) brightness(1.2); 
+  }
+  50% { 
+    filter: hue-rotate(180deg) brightness(0.8); 
+  }
+  75% { 
+    filter: hue-rotate(270deg) brightness(1.1); 
+  }
+}
+
+/* Scroll-driven animations */
+@supports (animation-timeline: scroll()) {
+  .scroll-fade {
+    animation: scrollFade linear;
+    animation-timeline: scroll();
+    animation-range: 0% 100%;
+  }
+  
+  .scroll-scale {
+    animation: scrollScale linear;
+    animation-timeline: scroll();
+    animation-range: 0% 50%;
+  }
+  
+  @keyframes scrollFade {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-100px); }
+  }
+  
+  @keyframes scrollScale {
+    0% { transform: scale(1); }
+    100% { transform: scale(0.8); }
+  }
+}
+
+/* Partículas futuristas */
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.8) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: particleFloat 6s ease-in-out infinite;
+}
+
+.particle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 4px;
+  background: rgba(34, 197, 94, 1);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.8));
+}
+
+/* Efeito neural network */
+.neural-line {
+  stroke: url(#neuralGradient);
+  stroke-width: 1;
+  fill: none;
+  opacity: 0;
+  animation: neuralPulse 3s ease-in-out infinite;
+}
+
+/* Grid futurista */
+.futuristic-grid {
+  animation: gridMove 20s linear infinite;
+}
+
+.dark .futuristic-grid {
+  background-image: 
+    linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.light .futuristic-grid {
+  background-image: 
+    linear-gradient(rgba(37, 99, 235, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Hologram scanner */
+.hologram-scanner {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    rgba(34, 197, 94, 0.8) 50%, 
+    transparent 100%);
+  animation: hologramScan 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.8));
+}
+
 .glass-effect {
   @apply bg-white/10 backdrop-blur-lg border border-white/20;
 }

@@ -8,8 +8,8 @@ export const personalInfo: PersonalInfo = {
     "Vila São Paulo, Palmital, Paraná, Brasil, Palmital/PR - CEP: 85270-000",
   email: "lukassamuka88@gmail.com",
   phone: "+5542998300659",
-  avatar: "/images/avatar.png",
-  resume: "/documents/curriculo-lucas-samuel-pereira-godoy.pdf",
+  avatar: "/avatar.png",
+  resume: "/documents/lucas-samuel-pereira-curriculo.pdf",
   timezone: "America/Sao_Paulo",
   languages: [
     { language: "Português", level: "Nativo/Fluente" },
@@ -42,5 +42,11 @@ export const socialLinks: SocialLink[] = [
     url: 'https://linkedin.com/in/lucas-samuel-pereira-godoy',
     icon: 'Linkedin',
     username: 'lucas-samuel-pereira-godoy'
+  },
+  {
+    platform: 'GitHub',
+    url: 'https://github.com/lucassamuel97',
+    icon: 'Github',
+    username: 'lucassamuel97'
   }
 ];

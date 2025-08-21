@@ -1,6 +1,8 @@
 'use client';
 
 import { Header } from '@/components/layout/Header';
+import { HeroSection } from '@/components/sections/HeroSection';
+import { AboutSection } from '@/components/sections/AboutSection';
 
 
 
@@ -12,7 +14,8 @@ export default function HomePage() {
       <Header />
       
       <div className="relative">
-        
+        <HeroSection />
+        <AboutSection />
       </div>
       
     </main>
