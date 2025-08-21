@@ -449,7 +449,7 @@ export const HeroSection = () => {
                   isDark ? 'bg-green-100' : 'bg-green-100'
                 }`}
               >
-                <span className="text-black font-bold text-xl">⚡</span>
+                <span className="text-black font-bold text-xl">🐘</span>
               </motion.div>
 
               <motion.div
@@ -467,7 +467,7 @@ export const HeroSection = () => {
                   isDark ? 'bg-green-100' : 'bg-green-100'
                 }`}
               >
-                <span className="text-black font-bold">🚀</span>
+                <span className="text-black font-bold">☕</span>
               </motion.div>
             </div>
           </motion.div>

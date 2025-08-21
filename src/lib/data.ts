@@ -1,11 +1,10 @@
-import { PersonalInfo, NavigationItem, SocialLink } from "@/types/index";
+import { PersonalInfo, NavigationItem, SocialLink, Education } from "@/types/index";
 
 export const personalInfo: PersonalInfo = {
   name: "Lucas Samuel Pereira Godoy",
   title: "Desenvolvedor Full-Stack",
-  bio: "Desenvolvedor Full-stack com experiência no desenvolvimento de ponta a ponta de sistemas de gestão para o setor público. Especializado no ecossistema PHP (PHP puro, Laravel, CodeIgniter) e tecnologias front-end (JavaScript, jQuery, Bootstrap, Tailwind, Next.js) para criar soluções que modernizam e automatizam processos.",
-  location:
-    "Vila São Paulo, Palmital, Paraná, Brasil, Palmital/PR - CEP: 85270-000",
+  bio: "Desenvolvedor Full-stack | Especialista em sistemas de gestão para o setor público. Domínio de PHP (Laravel, CodeIgniter), Java (Spring Boot) e front-end moderno (React.js, Next.js, Tailwind, Bootstrap, JavaScript/TypeScript). Experiência em DDD, Clean Architecture, Microsserviços, bancos de dados MySQL/PostgreSQL e DevOps (Docker, CI/CD, GitHub Actions). Apaixonado por criar soluções que modernizam e automatizam processos.",
+  location:"Palmital, Paraná, Brasil - CEP: 85270-000",
   email: "lukassamuka88@gmail.com",
   phone: "+5542998300659",
   avatar: "/avatar.png",
@@ -48,5 +47,55 @@ export const socialLinks: SocialLink[] = [
     url: 'https://github.com/lucassamuel97',
     icon: 'Github',
     username: 'lucassamuel97'
+  }
+];
+
+export const education: Education[] = [
+  {
+    id: '1',
+    degree: 'Tecnólogo em Sistemas para Internet',
+    institution: 'Universidade Tecnológica Federal do Paraná',
+    institutionUrl: 'https://utfpr.edu.br',
+    location: 'Guarapuava, Paraná, Brasil',
+    period: {
+      start: new Date('2017-07-05'),
+      end: new Date('2022-12-31')
+    },
+    description: 'Curso superior voltado ao desenvolvimento web, abrangendo programação, arquitetura de software, bancos de dados, redes e sistemas distribuídos. Ênfase em práticas modernas e projetos aplicados ao setor de tecnologia.',
+    relevantCourses: [
+      'Algoritmos e Lógica de Programação',
+      'Estruturas de Dados',
+      'Programação Orientada a Objetos',
+      'Desenvolvimento de Sistemas',
+      'Banco de Dados',
+      'Programação Web',
+      'Arquitetura de Software',
+      'Engenharia de Software',
+      'Redes de Computadores',
+      'Sistemas Distribuídos',
+      'Redes de Computadores e Internet',
+      'Estágio Curricular Obrigatório'
+    ]
+  },
+  {
+    id: '2',
+    degree: 'Tecnólogo em Gestão da Tecnologia da Informação',
+    institution: 'UCP - Faculdades do Centro do Paraná',
+    location: 'Pitanga, Paraná, Brasil',
+    period: {
+      start: new Date('2015-02-01'),
+      end: new Date('2017-06-31')
+    },
+    description: 'Formação superior focada em administração de sistemas, infraestrutura de TI, segurança da informação e gestão de projetos. Preparação para atuação em ambientes corporativos e públicos.',
+    relevantCourses: [
+      'Gestão de Projetos',
+      'Infraestrutura de TI',
+      'Segurança da Informação',
+      'Redes de Computadores',
+      'Sistemas Operacionais',
+      'Desenvolvimento Web',
+      'Banco de Dados',
+      'Análise de Sistemas'
+    ]
   }
 ];
