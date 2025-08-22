@@ -784,7 +784,7 @@ export const projects: Project[] = [
       "Sistema que centralizou dados de múltiplas unidades, automatizou a geração de relatórios mensais (RMA) e implementou visualização de dados com georreferenciamento.",
     longDescription:
       "Sistema completo de gestão desenvolvido para a Assistência Social que revolucionou o gerenciamento de dados. Centralizou informações de múltiplas unidades em uma única plataforma, automatizou a geração de relatórios mensais (RMA) e implementou visualização de dados com georreferenciamento para melhor tomada de decisões.",
-    image: "/images/projects/assistencia-social.jpg",
+    image: "",
     technologies: [
       "PHP",
       "Laravel",
@@ -836,7 +836,7 @@ export const projects: Project[] = [
       "Plataforma de gestão para postos de saúde, com módulos de agendamento e controle de estoque, desenvolvida em arquitetura HMVC.",
     longDescription:
       "Sistema completo para a gestão de postos de saúde, evoluído continuamente para atender novas demandas. Foram implementados módulos estratégicos como agendamento de consultas e controle de estoque de insumos médicos. Toda a solução foi construída com base na arquitetura HMVC, garantindo escalabilidade, organização do código e facilidade de manutenção a longo prazo.",
-    image: "/images/projects/postos-saude.jpg",
+    image: "",
     technologies: [
       "PHP",
       "CodeIgniter",
