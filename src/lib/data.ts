@@ -7,8 +7,6 @@ import {
   Skill,
   Project,
 } from "@/types/index";
-import { Mail, MonitorCog } from "lucide-react";
-import { cursorTo } from "readline";
 
 export const personalInfo: PersonalInfo = {
   name: "Lucas Samuel Pereira Godoy",

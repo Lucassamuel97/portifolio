@@ -246,3 +246,15 @@ export interface TimelineItem {
   link?: string;
 }
 
+// Google Analytics gtag function type
+export interface GtagFunction {
+  (command: 'config', targetId: string, config?: Record<string, unknown>): void;
+  (command: 'event', eventName: string, config?: Record<string, unknown>): void;
+  (command: 'js', date: Date): void;
+  (command: string, ...args: unknown[]): void;
+}
+
+export interface WindowWithGtag extends Window {
+  gtag?: GtagFunction;
+}
+

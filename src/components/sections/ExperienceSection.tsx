@@ -87,7 +87,7 @@ export const ExperienceSection = () => {
                             {experience.title}
                           </h3>
                           <Badge 
-                            variant={getTypeColor(experience.type) as any}
+                            variant={getTypeColor(experience.type) as 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'outline' | 'ghost'}
                             size="sm"
                           >
                             {getTypeLabel(experience.type)}

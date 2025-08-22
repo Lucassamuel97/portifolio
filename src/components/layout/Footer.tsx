@@ -1,21 +1,34 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Code2, Heart, ExternalLink } from 'lucide-react';
+import { 
+  Code2, 
+  Heart, 
+  ExternalLink, 
+  Github, 
+  Linkedin, 
+  Twitter, 
+  Instagram, 
+  Youtube, 
+  Facebook, 
+  Mail, 
+  Phone 
+} from 'lucide-react';
 import { personalInfo, socialLinks } from '@/lib/data';
 import { smoothScrollTo } from '@/lib/utils';
+import type { WindowWithGtag } from '@/types';
 
-// Importar ícones do Lucide React dinamicamente
+// Mapeamento de ícones do Lucide React
 const getIcon = (iconName: string) => {
-  const icons: Record<string, any> = {
-    Github: require('lucide-react').Github,
-    Linkedin: require('lucide-react').Linkedin,
-    Twitter: require('lucide-react').Twitter,
-    Instagram: require('lucide-react').Instagram,
-    Youtube: require('lucide-react').Youtube,
-    Facebook: require('lucide-react').Facebook,
-    Mail: require('lucide-react').Mail,
-    WhatsApp: require('lucide-react').Phone,
+  const icons: Record<string, React.ComponentType<{ className?: string }>> = {
+    Github,
+    Linkedin,
+    Twitter,
+    Instagram,
+    Youtube,
+    Facebook,
+    Mail,
+    WhatsApp: Phone,
   };
   
   const IconComponent = icons[iconName];
@@ -27,8 +40,9 @@ export const Footer = () => {
 
   const handleSocialClick = (url: string, platform: string) => {
     // Track analytics se disponível
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'click', {
+    const windowWithGtag = window as WindowWithGtag;
+    if (typeof window !== 'undefined' && windowWithGtag.gtag) {
+      windowWithGtag.gtag('event', 'click', {
         event_category: 'Social',
         event_label: platform,
         value: 1

@@ -3,13 +3,15 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Github, ExternalLink, Eye, Calendar, Filter, X } from 'lucide-react';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { projects } from '@/lib/data';
-import { formatDate, formatDateRelative } from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 import { Project } from '@/types';
+import type { WindowWithGtag } from '@/types';
 
 export const ProjectsSection = () => {
   const { ref, isIntersecting } = useIntersectionObserver({
@@ -29,8 +31,6 @@ export const ProjectsSection = () => {
   const filteredProjects = selectedCategory === 'all' 
     ? projects 
     : projects.filter(project => project.category === selectedCategory);
-
-  const featuredProjects = projects.filter(project => project.featured);
 
   const getStatusColor = (status: string) => {
     const colors = {
@@ -52,8 +52,9 @@ export const ProjectsSection = () => {
 
   const handleProjectClick = (url: string, type: 'github' | 'live' | 'demo') => {
     // Track analytics
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'click', {
+    const windowWithGtag = window as WindowWithGtag;
+    if (typeof window !== 'undefined' && windowWithGtag.gtag) {
+      windowWithGtag.gtag('event', 'click', {
         event_category: 'Project',
         event_label: type,
         value: 1
@@ -136,10 +137,12 @@ export const ProjectsSection = () => {
               <Card className="h-full shadow-lg hover:shadow-xl transition-all duration-300 group">
                 <div className="relative h-32 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center overflow-hidden">
                   {project.image ? (
-                    <img 
+                    <Image 
                       src={project.image} 
                       alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   ) : (
                     <div className="text-gray-600 dark:text-gray-400 text-2xl font-bold">
@@ -147,7 +150,7 @@ export const ProjectsSection = () => {
                     </div>
                   )}
                   <div className="absolute top-2 right-2">
-                    <Badge variant={getStatusColor(project.status) as any} size="sm">
+                    <Badge variant={getStatusColor(project.status) as 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'outline' | 'ghost'} size="sm">
                       {getStatusLabel(project.status)}
                     </Badge>
                   </div>
@@ -240,7 +243,7 @@ export const ProjectsSection = () => {
                       {selectedProject.title}
                     </h3>
                     <div className="flex items-center gap-2">
-                      <Badge variant={getStatusColor(selectedProject.status) as any}>
+                      <Badge variant={getStatusColor(selectedProject.status) as 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'outline' | 'ghost'}>
                         {getStatusLabel(selectedProject.status)}
                       </Badge>
                       <Badge variant="outline">

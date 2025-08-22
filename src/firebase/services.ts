@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore';
 import { logEvent } from 'firebase/analytics';
 import { db, analytics } from './config';
-import { ContactMessage, Project } from '@/types';
+import { ContactMessage } from '@/types';
 
 // Serviços para mensagens de contato
 export const contactService = {
@@ -125,7 +125,7 @@ export const analyticsService = {
     }
   },
 
-  trackEvent(eventName: string, parameters?: Record<string, any>) {
+  trackEvent(eventName: string, parameters?: Record<string, string | number | boolean>) {
     if (analytics) {
       logEvent(analytics, eventName, parameters);
     }
@@ -195,10 +195,20 @@ export const statsService = {
 
 // Utilitários
 export const firebaseUtils = {
-  formatTimestamp(timestamp: any) {
+  formatTimestamp(timestamp: Timestamp | Date | string | number | null | undefined) {
     if (!timestamp) return '';
     
-    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+    let date: Date;
+    
+    if (timestamp instanceof Date) {
+      date = timestamp;
+    } else if (timestamp && typeof timestamp === 'object' && 'toDate' in timestamp) {
+      // É um Timestamp do Firestore
+      date = (timestamp as Timestamp).toDate();
+    } else {
+      // É string ou number
+      date = new Date(timestamp as string | number);
+    }
     return new Intl.DateTimeFormat('pt-BR', {
       year: 'numeric',
       month: 'long',

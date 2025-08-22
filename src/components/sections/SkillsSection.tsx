@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Code, Server, Smartphone, Database, Cloud, Wrench, Layers } from 'lucide-react';
+import { Code, Server, Database, Cloud, Wrench, Layers } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { ProgressBar } from '@/components/ui/ProgressBar';

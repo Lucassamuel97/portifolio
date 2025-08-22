@@ -1,7 +1,18 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowDown, Download, ExternalLink } from 'lucide-react';
+import { 
+  ArrowDown, 
+  Download, 
+  ExternalLink, 
+  Github, 
+  Linkedin, 
+  Twitter, 
+  Instagram, 
+  Youtube, 
+  Mail, 
+  Phone 
+} from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { useTypewriter } from '@/hooks/useTypewriter';
 import { useVisualEffects } from '@/hooks/useVisualEffects';
@@ -10,16 +21,17 @@ import { personalInfo, socialLinks } from '@/lib/data';
 import { smoothScrollTo } from '@/lib/utils';
 import Image from 'next/image';
 import { useCallback } from 'react';
+import type { WindowWithGtag } from '@/types';
 
 const getIcon = (iconName: string) => {
-  const icons: Record<string, any> = {
-    Github: require('lucide-react').Github,
-    Linkedin: require('lucide-react').Linkedin,
-    Twitter: require('lucide-react').Twitter,
-    Instagram: require('lucide-react').Instagram,
-    Youtube: require('lucide-react').Youtube,
-    Mail: require('lucide-react').Mail,
-    WhatsApp: require('lucide-react').Phone,
+  const icons: Record<string, React.ComponentType<{ className?: string }>> = {
+    Github,
+    Linkedin,
+    Twitter,
+    Instagram,
+    Youtube,
+    Mail,
+    WhatsApp: Phone,
   };
   
   const IconComponent = icons[iconName];
@@ -28,7 +40,7 @@ const getIcon = (iconName: string) => {
 
 export const HeroSection = () => {
   const { isClient, dimensions, particleData, matrixData, neuralLines } = useVisualEffects();
-  const { mounted, isDark } = useClientTheme();
+  const { isDark } = useClientTheme();
 
   const { displayText } = useTypewriter({
     texts: [
@@ -54,8 +66,9 @@ export const HeroSection = () => {
   };
 
   const handleDownloadCV = useCallback(() => {
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'download', {
+    const windowWithGtag = window as WindowWithGtag;
+    if (typeof window !== 'undefined' && windowWithGtag.gtag) {
+      windowWithGtag.gtag('event', 'download', {
         event_category: 'CV',
         event_label: 'Resume Download',
         value: 1
@@ -68,8 +81,9 @@ export const HeroSection = () => {
   }, []);
 
   const handleSocialClick = useCallback((url: string, platform: string) => {
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'click', {
+    const windowWithGtag = window as WindowWithGtag;
+    if (typeof window !== 'undefined' && windowWithGtag.gtag) {
+      windowWithGtag.gtag('event', 'click', {
         event_category: 'Social',
         event_label: platform,
         value: 1

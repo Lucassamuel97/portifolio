@@ -12,6 +12,7 @@ import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { contactService } from '@/firebase/services';
 import { personalInfo } from '@/lib/data';
 import { validateEmail } from '@/lib/utils';
+import type { WindowWithGtag } from '@/types';
 
 interface FormData {
   name: string;
@@ -131,12 +132,15 @@ export const ContactSection = () => {
         setFormData({ name: '', email: '', subject: '', message: '' });
         
         // Track analytics
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          (window as any).gtag('event', 'form_submit', {
-            event_category: 'Contact',
-            event_label: 'Contact Form',
-            value: 1
-          });
+        if (typeof window !== 'undefined') {
+          const windowWithGtag = window as WindowWithGtag;
+          if (windowWithGtag.gtag) {
+            windowWithGtag.gtag('event', 'form_submit', {
+              event_category: 'Contact',
+              event_label: 'Contact Form',
+              value: 1
+            });
+          }
         }
       } else {
         setSubmitStatus('error');
@@ -213,8 +217,9 @@ export const ContactSection = () => {
                       href={info.href}
                       className="block"
                       onClick={() => {
-                        if (typeof window !== 'undefined' && (window as any).gtag) {
-                          (window as any).gtag('event', 'click', {
+                        const windowWithGtag = window as WindowWithGtag;
+                        if (typeof window !== 'undefined' && windowWithGtag.gtag) {
+                          windowWithGtag.gtag('event', 'click', {
                             event_category: 'Contact',
                             event_label: info.label,
                             value: 1
