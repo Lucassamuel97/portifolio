@@ -7,6 +7,7 @@ import { ExperienceSection } from '@/components/sections/ExperienceSection';
 import { SkillsSection } from '@/components/sections/SkillsSection';
 import { ProjectsSection } from '@/components/sections/ProjectsSection';
 import { ContactSection } from '@/components/sections/ContactSection';
+import { Footer } from '@/components/layout/Footer';
 
 
 
@@ -26,6 +27,7 @@ export default function HomePage() {
         <ContactSection />
       </div>
       
+      <Footer />
     </main>
   );
 }

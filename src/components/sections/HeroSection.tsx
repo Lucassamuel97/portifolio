@@ -19,6 +19,7 @@ const getIcon = (iconName: string) => {
     Instagram: require('lucide-react').Instagram,
     Youtube: require('lucide-react').Youtube,
     Mail: require('lucide-react').Mail,
+    WhatsApp: require('lucide-react').Phone,
   };
   
   const IconComponent = icons[iconName];

@@ -7,7 +7,7 @@ import {
   Skill,
   Project,
 } from "@/types/index";
-import { MonitorCog } from "lucide-react";
+import { Mail, MonitorCog } from "lucide-react";
 import { cursorTo } from "readline";
 
 export const personalInfo: PersonalInfo = {
@@ -57,6 +57,18 @@ export const socialLinks: SocialLink[] = [
     url: "https://github.com/lucassamuel97",
     icon: "Github",
     username: "lucassamuel97",
+  },
+  {
+    platform: "Email",
+    url: "mailto:lukassamuka88@gmail.com",
+    icon: "Mail",
+    username: "lukassamuka88@gmail.com",
+  },
+  {
+    platform: "WhatsApp",
+    url: "https://wa.me/5542998300659",
+    icon: "WhatsApp",
+    username: "+5542998300659",
   },
 ];
 
