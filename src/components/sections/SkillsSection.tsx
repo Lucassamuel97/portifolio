@@ -236,7 +236,7 @@ export const SkillsSection = () => {
         )}
 
         {/* All Skills Overview */}
-        <motion.div
+        {/*<motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isIntersecting ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
@@ -280,7 +280,7 @@ export const SkillsSection = () => {
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </motion.div>*/}
 
         {/* Skills Summary */}
         <motion.div
