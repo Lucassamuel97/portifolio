@@ -16,6 +16,22 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "SamucaDev - Portfólio",
   description: "Portfólio pessoal - Desenvolvedor",
+  openGraph: {
+    title: "SamucaDev - Portfólio",
+    description: "Portfólio pessoal - Desenvolvedor",
+    url: "https://samucadev.com",
+    siteName: "SamucaDev",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "SamucaDev - Portfólio",
+      },
+    ],
+    locale: "pt-BR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
