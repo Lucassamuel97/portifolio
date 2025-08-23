@@ -6,6 +6,7 @@ import {
   Experience,
   Skill,
   Project,
+  Certification,
 } from "@/types/index";
 
 export const personalInfo: PersonalInfo = {
@@ -40,6 +41,7 @@ export const navigationItems: NavigationItem[] = [
   { label: "Experiência", href: "#experience" },
   { label: "Habilidades", href: "#skills" },
   { label: "Projetos", href: "#projects" },
+  { label: "Certificações", href: "#certifications" },
   { label: "Contato", href: "#contact" },
 ];
 
@@ -900,8 +902,10 @@ export const projects: Project[] = [
       "Git",
       "Docker",
     ],
-    githubUrl: "https://github.com/Lucassamuel97/tcc-preventive-maintenance-utfpr",
-    liveUrl: "https://tcc.tsi.pro.br/uploads/academic_activity/pdf/132/GP_COINT_2022_1_LUCAS_SAMUEL_PEREIRA_GODOY_MONOGRAFIA.pdf",
+    githubUrl:
+      "https://github.com/Lucassamuel97/tcc-preventive-maintenance-utfpr",
+    liveUrl:
+      "https://tcc.tsi.pro.br/uploads/academic_activity/pdf/132/GP_COINT_2022_1_LUCAS_SAMUEL_PEREIRA_GODOY_MONOGRAFIA.pdf",
     category: "web",
     featured: false,
     status: "completed",
@@ -909,18 +913,247 @@ export const projects: Project[] = [
     updatedAt: new Date("2020-01-01"),
   },
   {
-  id: 'project-9',
-  title: 'Sistema de Rastreamento de Veículos',
-  description: 'Plataforma desenvolvida durante a Imersão Fullcycle 20 para rastreamento em tempo real de veículos.',
-  longDescription: 'Este projeto foi construído durante a Imersão Fullcycle 20 com foco no desenvolvimento de um sistema de rastreamento de veículos em tempo real. A solução integra múltiplos serviços, incluindo backend em NestJS, frontend em Next.js, mensageria com Kafka, banco de dados MongoDB e simulação de dados em Golang. Com suporte a Docker e microsserviços, o sistema permite acompanhar rotas e direções por meio da integração com APIs de mapas, oferecendo escalabilidade e desempenho em cenários reais de rastreamento.',
-  image: '',
-  technologies: ['NestJS', 'Next.js', 'Golang', 'Kafka', 'MongoDB', 'Docker', 'TypeScript'],
-  githubUrl: 'https://github.com/Lucassamuel97/rastreamento-de-veiculos',
-  liveUrl: '',
-  category: 'web',
-  featured: false,
-  status: 'completed',
-  createdAt: new Date('2024-01-15'),
-  updatedAt: new Date('2025-06-01')
-}
+    id: "project-9",
+    title: "Sistema de Rastreamento de Veículos",
+    description:
+      "Plataforma desenvolvida durante a Imersão Fullcycle 20 para rastreamento em tempo real de veículos.",
+    longDescription:
+      "Este projeto foi construído durante a Imersão Fullcycle 20 com foco no desenvolvimento de um sistema de rastreamento de veículos em tempo real. A solução integra múltiplos serviços, incluindo backend em NestJS, frontend em Next.js, mensageria com Kafka, banco de dados MongoDB e simulação de dados em Golang. Com suporte a Docker e microsserviços, o sistema permite acompanhar rotas e direções por meio da integração com APIs de mapas, oferecendo escalabilidade e desempenho em cenários reais de rastreamento.",
+    image: "",
+    technologies: [
+      "NestJS",
+      "Next.js",
+      "Golang",
+      "Kafka",
+      "MongoDB",
+      "Docker",
+      "TypeScript",
+    ],
+    githubUrl: "https://github.com/Lucassamuel97/rastreamento-de-veiculos",
+    liveUrl: "",
+    category: "web",
+    featured: false,
+    status: "completed",
+    createdAt: new Date("2024-01-15"),
+    updatedAt: new Date("2025-06-01"),
+  },
+];
+
+// Certificações e Conquistas
+export const certifications: Certification[] = [
+  {
+    id: "1",
+    title: "RabbitMQ",
+    description:
+      "Curso concluído sobre RabbitMQ, abordando conceitos fundamentais e avançados do sistema de mensageria para comunicação assíncrona entre processos.",
+    organization: "Full Cycle",
+    certificateCode: "2ef7f164-d78b-4d3d-90b9-3b7855da2d82",
+    period: "28/06/2024 a 17/10/2024",
+    hours: "6 horas",
+    instructors: "Full Cycle, Wesley Willians",
+    url: "https://fullcycle.com.br/certificado/2ef7f164-d78b-4d3d-90b9-3b7855da2d82",
+  },
+  {
+    id: "2",
+    title: "Java Continuous Integration-Delivery c. AWS e Github Actions",
+    description:
+      "Curso sobre Java Continuous Integration-Delivery com AWS e GitHub Actions, abordando práticas de CI/CD com foco em automação de deploys.",
+    organization: "Udemy",
+    instructors: "Leandro Costa, Erudio Training, Erudio Training Support",
+    certificateCode: "UC-58588596-e91d-4b4b-82aa-228087c4e12f",
+    period: "03/06/2024",
+    hours: "18,5 horas",
+    url: "https://www.udemy.com/certificate/UC-58588596-e91d-4b4b-82aa-228087c4e12f/"
+  },
+  {
+    id: "3",
+    title: "Comunicação entre Sistemas",
+    description:
+      "Curso sobre Comunicação entre Sistemas, abordando protocolos REST, gRPC e GraphQL para integração eficiente de aplicações.",
+    organization: "Full Cycle",
+    certificateCode: "3e5e5eb5-c256-42a8-b8b9-16a6eeffcf9e",
+    period: "19/06/2024 a 23/07/2024",
+    hours: "18 horas",
+    instructors: "Full Cycle, Wesley Willians",
+    url: "https://fullcycle.com.br/certificado/3e5e5eb5-c256-42a8-b8b9-16a6eeffcf9e",
+  },
+  {
+    id: "4",
+    title: "Clean Architecture",
+    description:
+      "Curso sobre Clean Architecture para alcançar reusabilidade de código, alta coesão, independência de tecnologia e facilidade de testes.",
+    organization: "Full Cycle",
+    certificateCode: "a5aaa14b-4538-4e42-ba2c-0adab4d36a14",
+    period: "01/08/2024 a 09/08/2024",
+    hours: "30 horas",
+    instructors: "Full Cycle, Wesley Willians",
+    url: "https://fullcycle.com.br/certificado/a5aaa14b-4538-4e42-ba2c-0adab4d36a14",
+  },
+  {
+    id: "5",
+    title: "Docker",
+    description:
+      "Curso sobre Docker com foco na criação e administração de ambientes isolados por meio de containers.",
+    organization: "Full Cycle",
+    certificateCode: "980564f0-73c5-42db-b544-efb32e4553dc",
+    period: "29/05/2024 a 28/06/2024",
+    hours: "21 horas",
+    instructors: "Full Cycle, Wesley Willians",
+    url: "https://fullcycle.com.br/certificado/980564f0-73c5-42db-b544-efb32e4553dc",
+  },
+  {
+    id: "6",
+    title: "SOLID Express",
+    description:
+      "Curso sobre os cinco princípios de design SOLID para desenvolvimento de software de alta qualidade.",
+    organization: "Full Cycle",
+    certificateCode: "31df4f3b-2534-4b1f-bedd-6d84142450b7",
+    period: "03/06/2024 a 03/06/2024",
+    hours: "3 horas",
+    instructors: "Full Cycle, Wesley Willians",
+    url: "https://fullcycle.com.br/certificado/31df4f3b-2534-4b1f-bedd-6d84142450b7",
+  },
+  {
+    id: "7",
+    title: "Domain Driven Design",
+    description:
+      "Curso sobre DDD para projetar e construir softwares complexos alinhados ao negócio.",
+    organization: "Full Cycle",
+    certificateCode: "04b1cd53-06c0-4a9a-8b9f-59cdb4efb1ee",
+    period: "28/06/2024 a 24/07/2024",
+    hours: "6 horas",
+    instructors: "Full Cycle, Wesley Willians",
+    url: "https://fullcycle.com.br/certificado/04b1cd53-06c0-4a9a-8b9f-59cdb4efb1ee",
+  },
+  {
+    id: "8",
+    title: "Arquitetura Hexagonal (Ports and Adapters)",
+    description:
+      "Curso sobre Arquitetura Hexagonal para organizar aplicações em camadas desacopladas com responsabilidades claras.",
+    organization: "Full Cycle",
+    certificateCode: "cb6d048a-cb83d-4f3e-a818-704ea752c1ee",
+    period: "01/08/2024 a 22/08/2024",
+    hours: "18 horas",
+    instructors: "Full Cycle, Wesley Willians",
+    url: "https://fullcycle.com.br/certificado/cb6d048a-cb83d-4f3e-a818-704ea752c1ee",
+  },
+  {
+    id: "9",
+    title: "DDD: Modelagem Tática e Patterns",
+    description:
+      "Curso sobre DDD: Modelagem Tática e Patterns para modelar software utilizando os blocos de construção do DDD.",
+    organization: "Full Cycle",
+    certificateCode: "292e73f1-57cc-47c8-923a-145f3e984d12",
+    period: "28/06/2024 a 02/08/2024",
+    hours: "34 horas",
+    instructors: "Full Cycle, Wesley Willians",
+    url: "https://fullcycle.com.br/certificado/292e73f1-57cc-47c8-923a-145f3e984d12",
+  },
+  {
+    id: "10",
+    title: "React JS com Redux, Firebase e TypeScript",
+    description:
+      "Curso sobre React JS com uso de Redux, Firebase e TypeScript para desenvolvimento de aplicações modernas e escaláveis.",
+    organization: "Udemy",
+    instructors: "Ivan Lourenço Gomes",
+    certificateCode: "UC-b8c2ecca-f602-4d3a-b054-5b29ae688d24",
+    period: "24/04/2024",
+    hours: "12,5 horas",
+    url: "https://www.udemy.com/certificate/UC-b8c2ecca-f602-4d3a-b054-5b29ae688d24/",
+  },
+  {
+    id: "11",
+    title: "Arquitetura de Sistemas Monolíticos",
+    description:
+      "Curso sobre Arquitetura de Sistemas Monolíticos para construção de monolitos robustos e sustentáveis.",
+    organization: "Full Cycle",
+    certificateCode: "88ec33cb-3806-45d0-bdd7-7b3ba1341507",
+    period: "09/08/2024 a 25/10/2024",
+    hours: "10 horas",
+    instructors: "Full Cycle, Wesley Willians",
+    url: "https://fullcycle.com.br/certificado/88ec33cb-3806-45d0-bdd7-7b3ba1341507",
+  },
+  {
+    id: "12",
+    title: "EDA - Event Driven Architecture",
+    description:
+      "Curso sobre EDA para uso de comunicação assíncrona na criação de sistemas distribuídos com baixo acoplamento.",
+    organization: "Full Cycle",
+    certificateCode: "cacc6fc7-66cd-43de-8ec6-41d24724f2d7",
+    period: "23/08/2024 a 29/11/2024",
+    hours: "10 horas",
+    instructors: "Full Cycle, Wesley Willians",
+    url: "https://fullcycle.com.br/certificado/cacc6fc7-66cd-43de-8ec6-41d24724f2d7",
+  },
+  {
+    id: "13",
+    title: "Fundamentos da arquitetura de software",
+    description:
+      "Performance, Escalabilidade e Resiliência são fundamentos essenciais para que um software seja construido da forma correta. É necessário entender os conceitos de fundamentos de arquitetura de software para se projetar e construir boas aplicações.",
+    organization: "Full Cycle",
+    certificateCode: "af8d2c18-ad1f-424f-8c59-eb98037fb550",
+    period: "03/06/2024 a 21/08/2025",
+    hours: "15 horas",
+    instructors: "Full Cycle, Wesley Willians",
+    url: "https://fullcycle.com.br/certificado/af8d2c18-ad1f-424f-8c59-eb98037fb550",
+  },
+  {
+    id: "14",
+    title: "Admin catalogo de vídeo - Codeflix - React.js (Front-end)",
+    description:
+      "Vamos criar o painel administrativo para a gestão de conteúdos para a CodeFlix.",
+    organization: "Full Cycle",
+    certificateCode: "4894c404-7f33-4638-ab7c-e0d87a66f518",
+    period: "10/12/2024 a 16/07/2025",
+    hours: "75 horas",
+    instructors: "Full Cycle, Vitor Alencar",
+    url: "https://fullcycle.com.br/certificado/4894c404-7f33-4638-ab7c-e0d87a66f518",
+  },
+  {
+    id: "15",
+    title: "Portal do usuário - Codeflix - (React.js, Next.js) (Front-end)",
+    description: "Vamos criar a interface do usuário para a CodeFlix.",
+    organization: "Full Cycle",
+    certificateCode: "7a4a19dd-f2b0-49e9-9c11-365df6162256",
+    period: "03/06/2024 a 04/08/2025",
+    hours: "36 horas",
+    instructors: "Full Cycle, Vitor Alencar",
+    url: "https://fullcycle.com.br/certificado/7a4a19dd-f2b0-49e9-9c11-365df6162256",
+  },
+  {
+    id: "16",
+    title: "Admin catalogo de vídeo - Codeflix - Java (Back-end)",
+    description:
+      "Vamos criar todo backend para a para a gestão de conteúdos para a CodeFlix, utilizando Java.",
+    organization: "Full Cycle",
+    certificateCode: "2d515bc7-a6ee-4c4f-8ec7-52e03850fc32",
+    period: "29/05/2024 a 12/03/2025",
+    hours: "140 horas",
+    instructors: "Full Cycle, Gabriel @deploydesexta.",
+    url: "https://fullcycle.com.br/certificado/2d515bc7-a6ee-4c4f-8ec7-52e03850fc32",
+  },
+  {
+    id: "17",
+    title: "Angular 9 + Spring Boot 2.2: Fullstack Completo e Atualizado",
+    description:
+      "Curso Fullstack com Angular 9 e Spring Boot 2.2 para desenvolvimento de aplicações web completas e atualizadas.",
+    organization: "Udemy",
+    certificateCode: "UC-9b254497-43ce-4804-8877-c6580424f40b",
+    period: "10/04/2024",
+    hours: "20 horas",
+    instructors: "Douglis Sousa",
+    url: "https://www.udemy.com/certificate/UC-9b254497-43ce-4804-8877-c6580424f40b/",
+  },
+  {
+    id: "18",
+    title: "Desenvolvimento Web Avançado com PHP, Laravel e Vue.JS",
+    description:
+      "Curso avançado de desenvolvimento web utilizando o ecossistema PHP com o framework Laravel no back-end e Vue.JS no front-end.",
+    organization: "Udemy",
+    certificateCode: "UC-b06ae732-90c3-4e8a-aa1a-0b1a91de1e19",
+    period: "22/08/2025",
+    hours: "57 horas",
+    instructors: "Jorge Sant Ana",
+    url: "https://www.udemy.com/certificate/UC-b06ae732-90e3-4e8a-aa1a-0b1a913e1e19/",
+  },
 ];

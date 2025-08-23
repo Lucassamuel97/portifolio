@@ -6,6 +6,7 @@ import { AboutSection } from '@/components/sections/AboutSection';
 import { ExperienceSection } from '@/components/sections/ExperienceSection';
 import { SkillsSection } from '@/components/sections/SkillsSection';
 import { ProjectsSection } from '@/components/sections/ProjectsSection';
+import { CertificationsSection } from '@/components/sections/CertificationsSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { Footer } from '@/components/layout/Footer';
 import { analyticsService } from '@/firebase/services';
@@ -19,7 +20,7 @@ export default function HomePage() {
     analyticsService.trackPageView('Home');
     
     // Track user engagement
-    let startTime = Date.now();
+    const startTime = Date.now();
     
     const handleBeforeUnload = () => {
       const engagementTime = Date.now() - startTime;
@@ -66,6 +67,7 @@ export default function HomePage() {
         <ExperienceSection />
         <SkillsSection />
         <ProjectsSection />
+        <CertificationsSection />
         <ContactSection />
       </div>
       

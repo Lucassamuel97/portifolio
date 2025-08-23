@@ -8,9 +8,9 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   demoUrl?: string;
-  category: 'web' | 'mobile' | 'desktop' | 'api' | 'library';
+  category: "web" | "mobile" | "desktop" | "api" | "library";
   featured: boolean;
-  status: 'completed' | 'in-progress' | 'planned';
+  status: "completed" | "in-progress" | "planned";
   views?: number;
   createdAt: Date;
   updatedAt: Date;
@@ -29,7 +29,7 @@ export interface Experience {
   description: string;
   responsibilities: string[];
   technologies: string[];
-  type: 'full-time' | 'part-time' | 'freelance' | 'contract' | 'internship';
+  type: "full-time" | "part-time" | "freelance" | "contract" | "internship";
   achievements?: string[];
 }
 
@@ -52,7 +52,14 @@ export interface Education {
 export interface Skill {
   id: string;
   name: string;
-  category: 'frontend' | 'backend' | 'mobile' | 'database' | 'devops' | 'tools' | 'other';
+  category:
+    | "frontend"
+    | "backend"
+    | "mobile"
+    | "database"
+    | "devops"
+    | "tools"
+    | "other";
   level: number; // 1-100
   icon?: string;
   experience: string; // e.g., "2 years"
@@ -66,9 +73,21 @@ export interface ContactMessage {
   subject: string;
   message: string;
   createdAt: Date;
-  status: 'unread' | 'read' | 'replied';
+  status: "unread" | "read" | "replied";
   userAgent?: string;
   ipAddress?: string;
+}
+
+export interface Certification {
+  id: string;
+  title: string;
+  description: string;
+  organization: string;
+  certificateCode: string;
+  instructors?: string;
+  period: string;
+  url?: string;
+  hours?: string;
 }
 
 export interface SocialLink {
@@ -84,7 +103,7 @@ export interface SEOData {
   keywords: string[];
   ogImage?: string;
   ogUrl?: string;
-  twitterCard?: 'summary' | 'summary_large_image';
+  twitterCard?: "summary" | "summary_large_image";
 }
 
 export interface Analytics {
@@ -109,7 +128,7 @@ export interface PersonalInfo {
   timezone: string;
   languages: Array<{ language: string; level: string }>;
   interests: string[];
-  availability: 'available' | 'busy' | 'not-available';
+  availability: "available" | "busy" | "not-available";
 }
 
 export interface Theme {
@@ -155,7 +174,7 @@ export interface LoadingState {
 }
 
 export interface NotificationProps {
-  type: 'success' | 'error' | 'warning' | 'info';
+  type: "success" | "error" | "warning" | "info";
   title: string;
   message: string;
   duration?: number;
@@ -169,18 +188,18 @@ export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  size?: "sm" | "md" | "lg" | "xl" | "full";
   closable?: boolean;
   children: React.ReactNode;
 }
 
 export interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "link";
+  size?: "sm" | "md" | "lg";
   disabled?: boolean;
   loading?: boolean;
   icon?: React.ReactNode;
-  iconPosition?: 'left' | 'right';
+  iconPosition?: "left" | "right";
   fullWidth?: boolean;
   children: React.ReactNode;
   onClick?: () => void;
@@ -189,7 +208,7 @@ export interface ButtonProps {
 export interface InputProps {
   label?: string;
   placeholder?: string;
-  type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url';
+  type?: "text" | "email" | "password" | "number" | "tel" | "url";
   required?: boolean;
   disabled?: boolean;
   error?: string;
@@ -197,7 +216,7 @@ export interface InputProps {
   value?: string;
   onChange?: (value: string) => void;
   icon?: React.ReactNode;
-  iconPosition?: 'left' | 'right';
+  iconPosition?: "left" | "right";
 }
 
 export interface CardProps {
@@ -213,14 +232,14 @@ export interface CardProps {
 }
 
 export interface BadgeProps {
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "success" | "warning" | "error" | "info";
+  size?: "sm" | "md" | "lg";
   children: React.ReactNode;
 }
 
 export interface TooltipProps {
   content: string;
-  position?: 'top' | 'bottom' | 'left' | 'right';
+  position?: "top" | "bottom" | "left" | "right";
   delay?: number;
   children: React.ReactNode;
 }
@@ -231,7 +250,7 @@ export interface ProgressBarProps {
   label?: string;
   color?: string;
   animated?: boolean;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   showValue?: boolean;
 }
 
@@ -248,13 +267,12 @@ export interface TimelineItem {
 
 // Google Analytics gtag function type
 export interface GtagFunction {
-  (command: 'config', targetId: string, config?: Record<string, unknown>): void;
-  (command: 'event', eventName: string, config?: Record<string, unknown>): void;
-  (command: 'js', date: Date): void;
+  (command: "config", targetId: string, config?: Record<string, unknown>): void;
+  (command: "event", eventName: string, config?: Record<string, unknown>): void;
+  (command: "js", date: Date): void;
   (command: string, ...args: unknown[]): void;
 }
 
 export interface WindowWithGtag extends Window {
   gtag?: GtagFunction;
 }
-
