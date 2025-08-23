@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "SamucaDev - Portfólio",
     description: "Portfólio pessoal - Desenvolvedor",
-    url: "https://samucadev.com",
+    url: "https://samucadev.vercel.app/",
     siteName: "SamucaDev",
     images: [
       {

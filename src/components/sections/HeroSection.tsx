@@ -460,8 +460,10 @@ export const HeroSection = () => {
                   repeat: Infinity,
                   ease: 'easeInOut'
                 }}
-                className={`absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-lg ${
-                  isDark ? 'bg-green-100' : 'bg-green-100'
+                className={`absolute -top-4 -right-4 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl backdrop-blur-md border hover:scale-110 transition-all duration-300 ${
+                  isDark 
+                    ? 'bg-gradient-to-br from-amber-400/30 to-green-600/50 border-amber-400/30 shadow-amber-500/20' 
+                    : 'bg-gradient-to-br from-white/40 to-green-100/60 border-amber-200/40 shadow-amber-600/20'
                 }`}
               >
                 <span className="text-black font-bold text-xl">🐘</span>
@@ -478,8 +480,10 @@ export const HeroSection = () => {
                   ease: 'easeInOut',
                   delay: 1
                 }}
-                className={`absolute -bottom-4 -left-4 w-12 h-12 rounded-full flex items-center justify-center shadow-lg ${
-                  isDark ? 'bg-green-100' : 'bg-green-100'
+                className={`absolute -bottom-4 -left-4 w-12 h-12 rounded-full flex items-center justify-center shadow-xl backdrop-blur-md border hover:scale-110 transition-all duration-300 ${
+                  isDark 
+                    ? 'bg-gradient-to-br from-amber-400/30 to-green-500/50 border-amber-400/30 shadow-amber-500/20' 
+                    : 'bg-gradient-to-br from-white/40 to-amber-100/60 border-amber-200/40 shadow-amber-600/20'
                 }`}
               >
                 <span className="text-black font-bold">☕</span>
