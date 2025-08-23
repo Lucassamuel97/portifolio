@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { experiences } from '@/lib/data';
-import { formatDate } from '@/lib/utils';
+import { safeFormatDate } from '@/lib/utils';
 
 export const ExperienceSection = () => {
   const { ref, isIntersecting } = useIntersectionObserver({
@@ -117,8 +117,8 @@ export const ExperienceSection = () => {
                           </div>
                           <div className="flex items-center">
                             <Calendar className="h-4 w-4 mr-2" />
-                            {formatDate(experience.period.start)} - {
-                              experience.period.end ? formatDate(experience.period.end) : 'Atual'
+                            {safeFormatDate(experience.period.start)} - {
+                              experience.period.end ? safeFormatDate(experience.period.end) : 'Atual'
                             }
                           </div>
                         </div>

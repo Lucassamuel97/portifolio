@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { projects } from '@/lib/data';
-import { formatDate } from '@/lib/utils';
+import { safeFormatDate } from '@/lib/utils';
 import { Project } from '@/types';
 import type { WindowWithGtag } from '@/types';
 
@@ -169,7 +169,7 @@ export const ProjectsSection = () => {
 
                   <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-3">
                     <Calendar className="h-3 w-3" />
-                    <span>{formatDate(project.updatedAt)}</span>
+                    <span>{safeFormatDate(project.updatedAt)}</span>
                   </div>
 
                   <div className="flex flex-wrap gap-1 mb-4">
@@ -268,13 +268,13 @@ export const ProjectsSection = () => {
                   <div>
                     <span className="font-semibold text-gray-900 dark:text-white">Criado em:</span>
                     <p className="text-gray-600 dark:text-gray-400">
-                      {formatDate(selectedProject.createdAt)}
+                      {safeFormatDate(selectedProject.createdAt)}
                     </p>
                   </div>
                   <div>
                     <span className="font-semibold text-gray-900 dark:text-white">Atualizado em:</span>
                     <p className="text-gray-600 dark:text-gray-400">
-                      {formatDate(selectedProject.updatedAt)}
+                      {safeFormatDate(selectedProject.updatedAt)}
                     </p>
                   </div>
                 </div>

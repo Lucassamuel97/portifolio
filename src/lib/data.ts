@@ -107,7 +107,7 @@ export const education: Education[] = [
     location: "Pitanga, Paraná, Brasil",
     period: {
       start: new Date("2015-02-01"),
-      end: new Date("2017-06-31"),
+      end: new Date("2017-06-30"),
     },
     description:
       "Formação superior focada em administração de sistemas, infraestrutura de TI, segurança da informação e gestão de projetos. Preparação para atuação em ambientes corporativos e públicos.",
@@ -754,7 +754,7 @@ export const projects: Project[] = [
     category: "web",
     featured: false,
     status: "completed",
-    createdAt: new Date("2025-12-10"),
+    createdAt: new Date("2024-12-10"),
     updatedAt: new Date("2025-07-16"),
   },
   {

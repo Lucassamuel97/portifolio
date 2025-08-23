@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/Badge';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import Image from 'next/image';
 import { personalInfo, education } from '@/lib/data';
-import { formatDate } from '@/lib/utils';
+import { safeFormatDate } from '@/lib/utils';
 import { useState } from 'react';
 
 export const AboutSection = () => {
@@ -173,7 +173,7 @@ export const AboutSection = () => {
                         </div>
                         <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
                           <Calendar className="h-4 w-4 mr-1" />
-                          {formatDate(edu.period.start)} - {edu.period.end ? formatDate(edu.period.end) : 'Atual'}
+                          {safeFormatDate(edu.period.start)} - {edu.period.end ? safeFormatDate(edu.period.end) : 'Atual'}
                         </div>
                       </div>
                       <div className="flex-shrink-0 ml-4">

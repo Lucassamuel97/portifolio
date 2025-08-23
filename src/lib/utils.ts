@@ -8,6 +8,12 @@ export function cn(...inputs: ClassValue[]) {
 export function formatDate(date: Date | string): string {
   const dateObj = typeof date === 'string' ? new Date(date) : date;
   
+  // Verificar se a data é válida
+  if (isNaN(dateObj.getTime())) {
+    console.warn('Data inválida fornecida para formatDate:', date);
+    return 'Data inválida';
+  }
+  
   return new Intl.DateTimeFormat('pt-BR', {
     year: 'numeric',
     month: 'long',
@@ -17,6 +23,13 @@ export function formatDate(date: Date | string): string {
 
 export function formatDateRelative(date: Date | string): string {
   const dateObj = typeof date === 'string' ? new Date(date) : date;
+  
+  // Verificar se a data é válida
+  if (isNaN(dateObj.getTime())) {
+    console.warn('Data inválida fornecida para formatDateRelative:', date);
+    return 'Data inválida';
+  }
+  
   const now = new Date();
   const diffInSeconds = Math.floor((now.getTime() - dateObj.getTime()) / 1000);
 
@@ -210,5 +223,19 @@ export function formatNumber(num: number): string {
 
 export function randomBetween(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export function isValidDate(date: Date | string): boolean {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  return !isNaN(dateObj.getTime()) && dateObj.getTime() > 0;
+}
+
+export function safeFormatDate(date: Date | string, fallback: string = 'Data não informada'): string {
+  if (!isValidDate(date)) {
+    console.warn('Data inválida fornecida para safeFormatDate:', date);
+    return fallback;
+  }
+  
+  return formatDate(date);
 }
 
