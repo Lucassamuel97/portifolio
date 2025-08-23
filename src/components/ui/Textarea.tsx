@@ -35,6 +35,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             className
           )}
           ref={ref}
+          suppressHydrationWarning
           {...props}
         />
         {(error || helperText) && (

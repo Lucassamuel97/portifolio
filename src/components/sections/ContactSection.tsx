@@ -8,7 +8,9 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
 import { Loading } from '@/components/ui/Loading';
+import { HydratedForm } from '@/components/ui/HydratedForm';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useHydrated } from '@/hooks/useHydrated';
 import { contactService } from '@/firebase/services';
 import { personalInfo } from '@/lib/data';
 import { validateEmail } from '@/lib/utils';
@@ -33,6 +35,8 @@ export const ContactSection = () => {
     threshold: 0.1,
     freezeOnceVisible: true
   });
+
+  const hydrated = useHydrated();
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -112,7 +116,7 @@ export const ContactSection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!validateForm()) return;
+    if (!hydrated || !validateForm()) return;
 
     setIsSubmitting(true);
     setSubmitStatus('idle');
@@ -123,7 +127,7 @@ export const ContactSection = () => {
         email: formData.email.trim(),
         subject: formData.subject.trim(),
         message: formData.message.trim(),
-        userAgent: navigator.userAgent,
+        userAgent: typeof window !== 'undefined' ? navigator.userAgent : '',
         ipAddress: '', // Will be filled by server if needed
       });
 
@@ -132,7 +136,7 @@ export const ContactSection = () => {
         setFormData({ name: '', email: '', subject: '', message: '' });
         
         // Track analytics
-        if (typeof window !== 'undefined') {
+        if (typeof window !== 'undefined' && hydrated) {
           const windowWithGtag = window as WindowWithGtag;
           if (windowWithGtag.gtag) {
             windowWithGtag.gtag('event', 'form_submit', {
@@ -217,13 +221,15 @@ export const ContactSection = () => {
                       href={info.href}
                       className="block"
                       onClick={() => {
-                        const windowWithGtag = window as WindowWithGtag;
-                        if (typeof window !== 'undefined' && windowWithGtag.gtag) {
-                          windowWithGtag.gtag('event', 'click', {
-                            event_category: 'Contact',
-                            event_label: info.label,
-                            value: 1
-                          });
+                        if (hydrated && typeof window !== 'undefined') {
+                          const windowWithGtag = window as WindowWithGtag;
+                          if (windowWithGtag.gtag) {
+                            windowWithGtag.gtag('event', 'click', {
+                              event_category: 'Contact',
+                              event_label: info.label,
+                              value: 1
+                            });
+                          }
                         }
                       }}
                     >
@@ -317,7 +323,7 @@ export const ContactSection = () => {
                       </motion.div>
                     )}
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <HydratedForm onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <Input
                       label="Nome"
@@ -381,7 +387,7 @@ export const ContactSection = () => {
                       </>
                     )}
                   </Button>
-                </form>
+                </HydratedForm>
 
                 <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
                   <p>

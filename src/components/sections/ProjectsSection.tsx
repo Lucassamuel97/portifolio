@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useHydrated } from '@/hooks/useHydrated';
 import { projects } from '@/lib/data';
 import { safeFormatDate } from '@/lib/utils';
 import { Project } from '@/types';
@@ -18,6 +19,8 @@ export const ProjectsSection = () => {
     threshold: 0.1,
     freezeOnceVisible: true
   });
+
+  const hydrated = useHydrated();
 
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -51,17 +54,19 @@ export const ProjectsSection = () => {
   };
 
   const handleProjectClick = (url: string, type: 'github' | 'live' | 'demo') => {
-    // Track analytics
-    const windowWithGtag = window as WindowWithGtag;
-    if (typeof window !== 'undefined' && windowWithGtag.gtag) {
-      windowWithGtag.gtag('event', 'click', {
-        event_category: 'Project',
-        event_label: type,
-        value: 1
-      });
+    // Track analytics only after hydration
+    if (hydrated && typeof window !== 'undefined') {
+      const windowWithGtag = window as WindowWithGtag;
+      if (windowWithGtag.gtag) {
+        windowWithGtag.gtag('event', 'click', {
+          event_category: 'Project',
+          event_label: type,
+          value: 1
+        });
+      }
+      
+      window.open(url, '_blank', 'noopener,noreferrer');
     }
-    
-    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (

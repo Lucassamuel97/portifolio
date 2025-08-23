@@ -5,4 +5,5 @@ export { Input } from './Input';
 export { Textarea } from './Textarea';
 export { ProgressBar } from './ProgressBar';
 export { Loading } from './Loading';
+export { HydratedForm } from './HydratedForm';
 
