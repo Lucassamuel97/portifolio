@@ -37,14 +37,7 @@ export const metadata: Metadata = {
     description,
     url: "/",
     siteName: SITE_NAME,
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: `${personalInfo.name} - ${personalInfo.title}`,
-      },
-    ],
+    // A imagem vem de src/app/opengraph-image.tsx (gerada no build)
     locale: "pt_BR",
     type: "website",
   },
@@ -52,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: ["/og-image.png"],
+    // A imagem vem de src/app/twitter-image.tsx
   },
   robots: {
     index: true,
