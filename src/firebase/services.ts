@@ -11,12 +11,16 @@ import {
   Timestamp 
 } from 'firebase/firestore';
 import { logEvent } from 'firebase/analytics';
-import { db, analytics } from './config';
+import { db, analytics, isFirebaseConfigured } from './config';
 import { ContactMessage } from '@/types';
 
 // Serviços para mensagens de contato
 export const contactService = {
   async submitMessage(message: Omit<ContactMessage, 'id' | 'createdAt' | 'status'>) {
+    if (!isFirebaseConfigured) {
+      return { success: false, error: 'Firebase não configurado' };
+    }
+
     try {
       const docRef = await addDoc(collection(db, 'contacts'), {
         ...message,

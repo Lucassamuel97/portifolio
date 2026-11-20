@@ -13,6 +13,7 @@ import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { useHydrated } from '@/hooks/useHydrated';
 import { contactService } from '@/firebase/services';
 import { personalInfo } from '@/lib/data';
+import { CONTACT_LIMITS, CONTACT_MIN_MESSAGE_LENGTH } from '@/lib/contact';
 import { validateEmail } from '@/lib/utils';
 import type { WindowWithGtag } from '@/types';
 
@@ -48,6 +49,9 @@ export const ContactSection = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  // Honeypot anti-spam: campo invisível que só robôs preenchem
+  const [honeypot, setHoneypot] = useState('');
 
   const contactInfo = [
     {
@@ -97,8 +101,8 @@ export const ContactSection = () => {
 
     if (!formData.message.trim()) {
       newErrors.message = 'Mensagem é obrigatória';
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Mensagem deve ter pelo menos 10 caracteres';
+    } else if (formData.message.trim().length < CONTACT_MIN_MESSAGE_LENGTH) {
+      newErrors.message = `Mensagem deve ter pelo menos ${CONTACT_MIN_MESSAGE_LENGTH} caracteres`;
     }
 
     setErrors(newErrors);
@@ -120,18 +124,36 @@ export const ContactSection = () => {
 
     setIsSubmitting(true);
     setSubmitStatus('idle');
+    setSubmitError(null);
+
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      subject: formData.subject.trim(),
+      message: formData.message.trim(),
+    };
 
     try {
-      const result = await contactService.submitMessage({
-        name: formData.name.trim(),
-        email: formData.email.trim(),
-        subject: formData.subject.trim(),
-        message: formData.message.trim(),
-        userAgent: typeof window !== 'undefined' ? navigator.userAgent : '',
-        ipAddress: '', // Will be filled by server if needed
+      // Envio principal: email via API (src/app/api/contact/route.ts)
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...payload, website: honeypot }),
       });
+      const result: { success?: boolean; error?: string } = await response
+        .json()
+        .catch(() => ({}));
 
-      if (result.success) {
+      // Backup no Firestore (não bloqueia e não interfere no resultado do envio)
+      if (!honeypot) {
+        void contactService.submitMessage({
+          ...payload,
+          userAgent: navigator.userAgent,
+          ipAddress: '',
+        });
+      }
+
+      if (response.ok && result.success) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', subject: '', message: '' });
         
@@ -147,6 +169,7 @@ export const ContactSection = () => {
           }
         }
       } else {
+        setSubmitError(result.error ?? null);
         setSubmitStatus('error');
       }
     } catch (error) {
@@ -317,6 +340,7 @@ export const ContactSection = () => {
                             Erro ao enviar mensagem
                           </h4>
                           <p className="text-red-600 dark:text-red-300 text-sm">
+                            {submitError ? `${submitError} ` : ''}
                             Tente novamente ou envie um email diretamente.
                           </p>
                         </div>
@@ -332,6 +356,8 @@ export const ContactSection = () => {
                       onChange={(e) => handleInputChange('name', e.target.value)}
                       error={errors.name}
                       required
+                      maxLength={CONTACT_LIMITS.name}
+                      autoComplete="name"
                       disabled={isSubmitting}
                     />
                     <Input
@@ -342,6 +368,8 @@ export const ContactSection = () => {
                       onChange={(e) => handleInputChange('email', e.target.value)}
                       error={errors.email}
                       required
+                      maxLength={CONTACT_LIMITS.email}
+                      autoComplete="email"
                       disabled={isSubmitting}
                     />
                   </div>
@@ -353,6 +381,7 @@ export const ContactSection = () => {
                     onChange={(e) => handleInputChange('subject', e.target.value)}
                     error={errors.subject}
                     required
+                    maxLength={CONTACT_LIMITS.subject}
                     disabled={isSubmitting}
                   />
 
@@ -363,6 +392,7 @@ export const ContactSection = () => {
                     onChange={(e) => handleInputChange('message', e.target.value)}
                     error={errors.message}
                     required
+                    maxLength={CONTACT_LIMITS.message}
                     disabled={isSubmitting}
                     rows={6}
                   />
@@ -387,6 +417,20 @@ export const ContactSection = () => {
                       </>
                     )}
                   </Button>
+
+                  {/* Honeypot anti-spam: fora da tela e ignorado por leitores de tela */}
+                  <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+                    <label htmlFor="contact-website">Website</label>
+                    <input
+                      id="contact-website"
+                      name="website"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                    />
+                  </div>
                 </HydratedForm>
 
                 <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">

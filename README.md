@@ -70,7 +70,7 @@ pnpm install
 cp .env.example .env.local
 ```
 
-Edite o arquivo `.env.local` com suas configurações do Firebase:
+Edite o arquivo `.env.local` com suas configurações do Firebase e do envio de email:
 ```env
 NEXT_PUBLIC_FIREBASE_API_KEY=sua_api_key
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=seu_auth_domain
@@ -79,7 +79,14 @@ NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=seu_storage_bucket
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=seu_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=seu_app_id
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=seu_measurement_id
+
+# Formulário de contato → email (https://resend.com)
+RESEND_API_KEY=sua_api_key_do_resend
+CONTACT_TO_EMAIL=email_que_recebe_as_mensagens
+CONTACT_FROM_EMAIL="Portfólio SamucaDev <contato@samuca.tec.br>"
 ```
+
+O formulário de contato envia um email pela rota `src/app/api/contact/route.ts` (Resend) e salva uma cópia no Firestore como backup. Na Vercel, cadastre as mesmas variáveis em **Settings → Environment Variables**.
 
 4. **Execute o projeto em modo de desenvolvimento**
 ```bash
