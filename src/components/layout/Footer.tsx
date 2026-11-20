@@ -169,7 +169,8 @@ export const Footer = () => {
           transition={{ delay: 0.5 }}
           className="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8 text-center"
         >
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          {/* O HTML é gerado no build: se o ano virar sem novo deploy, o ano do navegador difere */}
+          <p className="text-sm text-gray-500 dark:text-gray-400" suppressHydrationWarning>
             © {currentYear} {personalInfo.name} (SamucaDev). Todos os direitos reservados.
           </p>
         </motion.div>

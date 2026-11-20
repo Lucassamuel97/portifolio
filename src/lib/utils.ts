@@ -14,10 +14,14 @@ export function formatDate(date: Date | string): string {
     return 'Data inválida';
   }
   
+  // As datas do portfólio são dias de calendário (ex.: new Date("2017-07-05")), que o JS cria
+  // como meia-noite UTC. Formatar em UTC evita que, no fuso do Brasil (UTC-3), apareça o dia
+  // anterior e que o HTML do servidor (UTC) difira do navegador (erro de hidratação #418).
   return new Intl.DateTimeFormat('pt-BR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: 'UTC',
   }).format(dateObj);
 }
 
