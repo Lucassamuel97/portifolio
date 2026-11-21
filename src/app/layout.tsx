@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Archivo, Public_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import { personalInfo, socialLinks } from "@/lib/data";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+// Archivo com eixo de largura (wdth): expandida nos títulos, estreita nos rótulos.
+// Public Sans, criada para serviços digitais de governo, no texto corrido.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
+  axes: ["wdth"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+const publicSans = Public_Sans({
+  variable: "--font-public-sans",
   subsets: ["latin"],
 });
 
@@ -90,7 +93,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${archivo.variable} ${publicSans.variable}`}
       suppressHydrationWarning
     >
       <body className="antialiased">
@@ -101,10 +104,11 @@ export default function RootLayout({
           }}
         />
         <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange={false}
+          attribute="data-tema"
+          value={{ light: "papel", dark: "blueprint" }}
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
           storageKey="portfolio-theme"
         >
           {children}

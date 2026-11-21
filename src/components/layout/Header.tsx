@@ -1,199 +1,107 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Code2 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { ThemeToggle } from './ThemeToggle';
+import { useEffect, useState } from 'react';
+import { Container } from '@/components/layout/Container';
+import { ThemeToggle } from '@/components/layout/ThemeToggle';
 import { useScrollspy } from '@/hooks/useScrollspy';
 import { navigationItems } from '@/lib/data';
-import { cn, smoothScrollTo } from '@/lib/utils';
+import { cn } from '@/lib/utils';
+
+const SECOES = ['inicio', 'projetos', 'sobre', 'tecnologias', 'trajetoria', 'formacao', 'contato'];
+
+const sublinhado =
+  'bg-[linear-gradient(rgb(var(--revisao)),rgb(var(--revisao)))] bg-[length:0_2px] bg-left-bottom bg-no-repeat transition-[background-size] duration-300 ease-prancha hover:bg-[length:100%_2px] aria-[current=true]:bg-[length:100%_2px]';
 
 export const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const activeSection = useScrollspy(navigationItems.map(item => item.href.slice(1)), 100);
+  const ativa = useScrollspy(SECOES);
+  const [rolado, setRolado] = useState(false);
+  const [aberto, setAberto] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    // Verificar tamanho inicial
-    handleResize();
-    
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
+    const aoRolar = () => setRolado(window.scrollY > 8);
+    aoRolar();
+    window.addEventListener('scroll', aoRolar, { passive: true });
+    return () => window.removeEventListener('scroll', aoRolar);
   }, []);
 
-  const handleNavClick = (href: string) => {
-    const sectionId = href.slice(1);
-    smoothScrollTo(sectionId, 80);
-    setIsOpen(false);
-  };
+  useEffect(() => {
+    if (!aberto) return;
+    const aoTeclar = (e: KeyboardEvent) => e.key === 'Escape' && setAberto(false);
+    document.addEventListener('keydown', aoTeclar);
+    return () => document.removeEventListener('keydown', aoTeclar);
+  }, [aberto]);
+
+  const itens = navigationItems;
 
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
+    <header
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled || (isMobile && isOpen)
-          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-gray-200/20 dark:border-gray-700/20 shadow-lg' 
-          : 'bg-transparent'
+        'sticky top-0 z-30 border-b bg-papel transition-colors duration-300',
+        rolado ? 'border-tinta/90' : 'border-transparent'
       )}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            <button
-              onClick={() => handleNavClick('#hero')}
-              className="flex items-center space-x-2 text-xl font-bold text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-            >
-              <Code2 className="h-8 w-8 text-primary-600 dark:text-primary-400" />
-              <span className="text-primary-900 dark:text-white">SamucaDev</span>
-            </button>
-          </motion.div>
+      <Container className="flex min-h-16 items-center justify-between gap-6">
+        <a
+          href="#inicio"
+          className="font-display text-lg font-extrabold tracking-tight no-underline largura-125"
+          aria-label="SamucaDev, voltar ao início"
+        >
+          Samuca<span className="font-light">Dev</span>
+        </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navigationItems.map((item, index) => (
-              <motion.button
-                key={item.href}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + index * 0.1 }}
-                onClick={() => handleNavClick(item.href)}
-                className={cn(
-                  'text-sm font-medium transition-colors relative py-2',
-                  activeSection === item.href.slice(1)
-                    ? 'text-primary-600 dark:text-primary-400'
-                    : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
-                )}
-              >
-                {item.label}
-                {activeSection === item.href.slice(1) && (
-                  <motion.div
-                    layoutId="activeSection"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600 dark:bg-primary-400"
-                    initial={false}
-                  />
-                )}
-              </motion.button>
+        <nav aria-label="Seções" className="ml-auto hidden lg:block">
+          <ul className="flex items-center gap-6">
+            {itens.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  aria-current={ativa === item.href.slice(1) ? 'true' : undefined}
+                  className={cn('py-2 font-display text-pequeno font-medium no-underline', sublinhado)}
+                >
+                  {item.label}
+                </a>
+              </li>
             ))}
-          </nav>
+          </ul>
+        </nav>
 
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-4">
-            <ThemeToggle />
-            <Button
-              onClick={() => handleNavClick('#contact')}
-              size="sm"
-              className="shadow-lg hover:shadow-xl"
-            >
-              Contato
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-2">
-            <ThemeToggle />
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(!isOpen)}
-              className="relative"
-            >
-              <AnimatePresence mode="wait">
-                {isOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X className="h-6 w-6" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu className="h-6 w-6" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Button>
-          </div>
+        <div className="flex items-center gap-3">
+          <ThemeToggle className="max-sm:hidden" />
+          <button
+            type="button"
+            className="min-h-11 border border-tinta/90 px-3 font-display text-pequeno font-semibold lg:hidden"
+            aria-expanded={aberto}
+            aria-controls="menu-movel"
+            onClick={() => setAberto((v) => !v)}
+          >
+            {aberto ? 'Fechar' : 'Menu'}
+          </button>
         </div>
+      </Container>
 
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.nav
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="md:hidden border-t border-gray-200/20 dark:border-gray-700/20"
-            >
-              <div className="py-4 space-y-4">
-                {navigationItems.map((item, index) => (
-                  <motion.button
-                    key={item.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    onClick={() => handleNavClick(item.href)}
-                    className={cn(
-                      'block w-full text-left px-4 py-2 text-base font-medium rounded-lg transition-colors',
-                      activeSection === item.href.slice(1)
-                        ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
-                        : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-800'
-                    )}
+      {aberto && (
+        <div id="menu-movel" className="border-y border-tinta/90 bg-papel lg:hidden">
+          <Container className="pb-8 pt-4">
+            <div className="mb-4 flex items-center justify-between gap-4 sm:hidden">
+              <span className="rotulo">Tema</span>
+              <ThemeToggle />
+            </div>
+            <ul>
+              {itens.map((item) => (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    onClick={() => setAberto(false)}
+                    className="block border-b border-tinta/15 py-3 font-display text-grande font-semibold no-underline largura-112"
                   >
                     {item.label}
-                  </motion.button>
-                ))}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: navigationItems.length * 0.1 }}
-                  className="px-4 pt-2"
-                >
-                  <Button
-                    onClick={() => handleNavClick('#contact')}
-                    fullWidth
-                    className="shadow-lg hover:shadow-xl"
-                  >
-                    Entrar em Contato
-                  </Button>
-                </motion.div>
-              </div>
-            </motion.nav>
-          )}
-        </AnimatePresence>
-      </div>
-    </motion.header>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </div>
+      )}
+    </header>
   );
 };
-

@@ -1,457 +1,52 @@
-'use client';
-
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Send, MapPin, Phone, Mail, Clock, CheckCircle, AlertCircle } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Textarea } from '@/components/ui/Textarea';
-import { Loading } from '@/components/ui/Loading';
-import { HydratedForm } from '@/components/ui/HydratedForm';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import { useHydrated } from '@/hooks/useHydrated';
-import { contactService } from '@/firebase/services';
-import { personalInfo } from '@/lib/data';
-import { CONTACT_LIMITS, CONTACT_MIN_MESSAGE_LENGTH } from '@/lib/contact';
-import { validateEmail } from '@/lib/utils';
-import type { WindowWithGtag } from '@/types';
-
-interface FormData {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
-interface FormErrors {
-  name?: string;
-  email?: string;
-  subject?: string;
-  message?: string;
-}
+import { Container, Section } from '@/components/layout/Container';
+import { ContactForm } from '@/components/sections/ContactForm';
+import { personalInfo, socialLinks } from '@/lib/data';
 
 export const ContactSection = () => {
-  const { ref, isIntersecting } = useIntersectionObserver({
-    threshold: 0.1,
-    freezeOnceVisible: true
-  });
+  const social = Object.fromEntries(socialLinks.map((s) => [s.platform, s]));
+  const telefone = String(personalInfo.phone).replace(/^\+55(\d{2})(\d{5})(\d{4})$/, '+55 ($1) $2-$3');
+  const link =
+    'bg-[linear-gradient(rgb(var(--revisao)),rgb(var(--revisao)))] bg-[length:0_2px] bg-left-bottom bg-no-repeat no-underline transition-[background-size] duration-300 ease-prancha hover:bg-[length:100%_2px] focus-visible:bg-[length:100%_2px]';
 
-  const hydrated = useHydrated();
-
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  // Honeypot anti-spam: campo invisível que só robôs preenchem
-  const [honeypot, setHoneypot] = useState('');
-
-  const contactInfo = [
-    {
-      icon: MapPin,
-      label: 'Localização',
-      value: personalInfo.location,
-      color: 'text-blue-500'
-    },
-    {
-      icon: Mail,
-      label: 'Email',
-      value: personalInfo.email,
-      href: `mailto:${personalInfo.email}`,
-      color: 'text-green-500'
-    },
-    {
-      icon: Phone,
-      label: 'Telefone',
-      value: personalInfo.phone || '+55 (11) 99999-9999',
-      href: `tel:${personalInfo.phone}`,
-      color: 'text-purple-500'
-    },
-    {
-      icon: Clock,
-      label: 'Horário de Resposta',
-      value: 'Dentro de 24 horas',
-      color: 'text-orange-500'
-    }
-  ];
-
-  const validateForm = (): boolean => {
-    const newErrors: FormErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'Nome é obrigatório';
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email é obrigatório';
-    } else if (!validateEmail(formData.email)) {
-      newErrors.email = 'Email inválido';
-    }
-
-    if (!formData.subject.trim()) {
-      newErrors.subject = 'Assunto é obrigatório';
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = 'Mensagem é obrigatória';
-    } else if (formData.message.trim().length < CONTACT_MIN_MESSAGE_LENGTH) {
-      newErrors.message = `Mensagem deve ter pelo menos ${CONTACT_MIN_MESSAGE_LENGTH} caracteres`;
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleInputChange = (field: keyof FormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    // Clear error when user starts typing
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }));
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!hydrated || !validateForm()) return;
-
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-    setSubmitError(null);
-
-    const payload = {
-      name: formData.name.trim(),
-      email: formData.email.trim(),
-      subject: formData.subject.trim(),
-      message: formData.message.trim(),
-    };
-
-    try {
-      // Envio principal: email via API (src/app/api/contact/route.ts)
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...payload, website: honeypot }),
-      });
-      const result: { success?: boolean; error?: string } = await response
-        .json()
-        .catch(() => ({}));
-
-      // Backup no Firestore (não bloqueia e não interfere no resultado do envio)
-      if (!honeypot) {
-        void contactService.submitMessage({
-          ...payload,
-          userAgent: navigator.userAgent,
-          ipAddress: '',
-        });
-      }
-
-      if (response.ok && result.success) {
-        setSubmitStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-        
-        // Track analytics
-        if (typeof window !== 'undefined' && hydrated) {
-          const windowWithGtag = window as WindowWithGtag;
-          if (windowWithGtag.gtag) {
-            windowWithGtag.gtag('event', 'form_submit', {
-              event_category: 'Contact',
-              event_label: 'Contact Form',
-              value: 1
-            });
-          }
-        }
-      } else {
-        setSubmitError(result.error ?? null);
-        setSubmitStatus('error');
-      }
-    } catch (error) {
-      console.error('Erro ao enviar mensagem:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const canais = [
+    { rotulo: 'E-mail', href: `mailto:${personalInfo.email}`, texto: personalInfo.email },
+    social.LinkedIn && { rotulo: 'LinkedIn', href: social.LinkedIn.url, texto: `in/${social.LinkedIn.username}`, externo: true },
+    social.GitHub && { rotulo: 'GitHub', href: social.GitHub.url, texto: social.GitHub.username, externo: true },
+    social.WhatsApp && { rotulo: 'WhatsApp', href: social.WhatsApp.url, texto: telefone, externo: true },
+    personalInfo.resume && { rotulo: 'Currículo', href: personalInfo.resume, texto: 'Baixar PDF', download: true },
+  ].filter(Boolean) as { rotulo: string; href: string; texto: string; externo?: boolean; download?: boolean }[];
 
   return (
-    <section id="contact" className="py-20 bg-white dark:bg-gray-900" ref={ref}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isIntersecting ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Entre em Contato
+    <Section id="contato" titleId="contato-titulo" className="bg-papel-2">
+      <Container className="grid gap-12 xl:grid-cols-12 xl:gap-x-6">
+        <div className="xl:col-span-7">
+          <h2 id="contato-titulo" className="font-display text-titulo font-bold largura-112">
+            Contato
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Tem um projeto em mente? Vamos conversar sobre como posso ajudar você a alcançar seus objetivos
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isIntersecting ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <Card className="h-full shadow-xl">
-              <CardHeader>
-                <CardTitle className="text-2xl text-center">
-                  Informações de Contato
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {contactInfo.map((info, index) => {
-                  const Icon = info.icon;
-                  const content = (
-                    <motion.div
-                      key={info.label}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={isIntersecting ? { opacity: 1, y: 0 } : {}}
-                      transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                      className={`flex items-center p-4 rounded-lg bg-gray-50 dark:bg-gray-800 ${
-                        info.href ? 'hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer' : ''
-                      } transition-colors group`}
-                    >
-                      <div className={`w-12 h-12 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center mr-4 ${info.color} shadow-sm group-hover:shadow-md transition-shadow`}>
-                        <Icon className="h-6 w-6" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 dark:text-white">
-                          {info.label}
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-400">
-                          {info.value}
-                        </p>
-                      </div>
-                    </motion.div>
-                  );
-
-                  return info.href ? (
-                    <a
-                      key={info.label}
-                      href={info.href}
-                      className="block"
-                      onClick={() => {
-                        if (hydrated && typeof window !== 'undefined') {
-                          const windowWithGtag = window as WindowWithGtag;
-                          if (windowWithGtag.gtag) {
-                            windowWithGtag.gtag('event', 'click', {
-                              event_category: 'Contact',
-                              event_label: info.label,
-                              value: 1
-                            });
-                          }
-                        }
-                      }}
-                    >
-                      {content}
-                    </a>
-                  ) : content;
-                })}
-
-                {/* CTA */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isIntersecting ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.8 }}
-                  className="mt-8 p-6 bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/20 dark:to-secondary-900/20 rounded-lg border border-primary-200 dark:border-primary-800"
-                >
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Vamos trabalhar juntos!
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm">
-                    Estou sempre interessado em novos projetos e oportunidades de colaboração. 
-                    Entre em contato e vamos criar algo incrível juntos.
-                  </p>
-                </motion.div>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isIntersecting ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <Card className="h-full shadow-xl">
-              <CardHeader>
-                <CardTitle className="text-2xl text-center">
-                  Enviar Mensagem
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {submitStatus === 'success' ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-12"
+          <p className="mt-6 max-w-[14ch] font-display text-frase font-[740] largura-116">Vamos conversar sobre o seu sistema.</p>
+          <p className="mt-4 text-tinta-2">Para projetos, vagas ou uma conversa técnica. Respondo em até 24 horas.</p>
+          <dl className="mt-8">
+            {canais.map((c) => (
+              <div key={c.rotulo} className="grid grid-cols-1 gap-1 border-t border-tinta/90 py-3 last:border-b md:grid-cols-[6.5rem_minmax(0,1fr)] md:items-baseline md:gap-3">
+                <dt className="rotulo">{c.rotulo}</dt>
+                <dd className="min-w-0 font-display text-[clamp(1.05rem,0.95rem+0.6vw,1.4rem)] font-semibold [overflow-wrap:anywhere]">
+                  <a
+                    href={c.href}
+                    className={link}
+                    {...(c.externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    {...(c.download ? { download: true } : {})}
                   >
-                    <div className="mb-6">
-                      <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
-                      </div>
-                      <h3 className="text-2xl font-bold text-green-800 dark:text-green-400 mb-2">
-                        Mensagem enviada com sucesso!
-                      </h3>
-                      <p className="text-green-600 dark:text-green-300 mb-6">
-                        Obrigado pelo contato. Responderei em breve.
-                      </p>
-                    </div>
-                    
-                    <div className="space-y-3 text-sm text-gray-600 dark:text-gray-400">
-                      <p>
-                        Normalmente respondo dentro de 24 horas.
-                      </p>
-                      <p>
-                        Para contato direto, envie um email para{' '}
-                        <a
-                          href={`mailto:${personalInfo.email}`}
-                          className="text-primary-600 dark:text-primary-400 hover:underline font-medium"
-                        >
-                          {personalInfo.email}
-                        </a>
-                      </p>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <>
-                    {submitStatus === 'error' && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center"
-                      >
-                        <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 mr-3" />
-                        <div>
-                          <h4 className="font-semibold text-red-800 dark:text-red-400">
-                            Erro ao enviar mensagem
-                          </h4>
-                          <p className="text-red-600 dark:text-red-300 text-sm">
-                            {submitError ? `${submitError} ` : ''}
-                            Tente novamente ou envie um email diretamente.
-                          </p>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    <HydratedForm onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Input
-                      label="Nome"
-                      placeholder="Seu nome completo"
-                      value={formData.name}
-                      onChange={(e) => handleInputChange('name', e.target.value)}
-                      error={errors.name}
-                      required
-                      maxLength={CONTACT_LIMITS.name}
-                      autoComplete="name"
-                      disabled={isSubmitting}
-                    />
-                    <Input
-                      label="Email"
-                      type="email"
-                      placeholder="seu@email.com"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
-                      error={errors.email}
-                      required
-                      maxLength={CONTACT_LIMITS.email}
-                      autoComplete="email"
-                      disabled={isSubmitting}
-                    />
-                  </div>
-
-                  <Input
-                    label="Assunto"
-                    placeholder="Assunto da sua mensagem"
-                    value={formData.subject}
-                    onChange={(e) => handleInputChange('subject', e.target.value)}
-                    error={errors.subject}
-                    required
-                    maxLength={CONTACT_LIMITS.subject}
-                    disabled={isSubmitting}
-                  />
-
-                  <Textarea
-                    label="Mensagem"
-                    placeholder="Conte-me sobre seu projeto ou como posso ajudá-lo..."
-                    value={formData.message}
-                    onChange={(e) => handleInputChange('message', e.target.value)}
-                    error={errors.message}
-                    required
-                    maxLength={CONTACT_LIMITS.message}
-                    disabled={isSubmitting}
-                    rows={6}
-                  />
-
-                  <Button
-                    type="submit"
-                    fullWidth
-                    size="lg"
-                    disabled={isSubmitting}
-                    loading={isSubmitting}
-                    className="shadow-lg hover:shadow-xl transition-all duration-300"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loading size="sm" className="mr-2" />
-                        Enviando...
-                      </>
-                    ) : (
-                      <>
-                        <Send className="mr-2 h-5 w-5" />
-                        Enviar Mensagem
-                      </>
-                    )}
-                  </Button>
-
-                  {/* Honeypot anti-spam: fora da tela e ignorado por leitores de tela */}
-                  <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
-                    <label htmlFor="contact-website">Website</label>
-                    <input
-                      id="contact-website"
-                      name="website"
-                      type="text"
-                      tabIndex={-1}
-                      autoComplete="off"
-                      value={honeypot}
-                      onChange={(e) => setHoneypot(e.target.value)}
-                    />
-                  </div>
-                </HydratedForm>
-
-                <div className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-                  <p>
-                    Ou envie um email diretamente para{' '}
-                    <a
-                      href={`mailto:${personalInfo.email}`}
-                      className="text-primary-600 dark:text-primary-400 hover:underline"
-                    >
-                      {personalInfo.email}
-                    </a>
-                  </p>
-                </div>
-                </>
-                )}
-              </CardContent>
-            </Card>
-          </motion.div>
+                    {c.texto}
+                  </a>
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
-      </div>
-    </section>
+        <div className="xl:col-span-4 xl:col-start-9 xl:pt-2">
+          <ContactForm />
+        </div>
+      </Container>
+    </Section>
   );
 };
-

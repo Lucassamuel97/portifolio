@@ -2,7 +2,7 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-Lucassamuel97-181717?style=for-the-badge&logo=github)](https://github.com/Lucassamuel97)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-lucas--samuel--pereira--godoy-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/lucas-samuel-pereira-godoy)
-[![Next.js](https://img.shields.io/badge/Next.js-15.4.6-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.5-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 
 ## 📋 Descrição
@@ -14,7 +14,7 @@ O projeto resolve o problema de apresentação profissional online, oferecendo u
 ## 🛠️ Tecnologias Utilizadas
 
 ### Frontend
-- **Framework:** Next.js 15.4.6 com App Router
+- **Framework:** Next.js 15.5 com App Router (seções como componentes de servidor)
 - **Linguagem:** TypeScript 5.0
 - **Bibliotecas React:**
   - React 19.1.0
@@ -23,16 +23,16 @@ O projeto resolve o problema de apresentação profissional online, oferecendo u
   - Tailwind CSS 3.4.17
   - Tailwind Merge 2.5.4
   - Tailwind Forms 0.5.9
-- **Animações:** Framer Motion 11.11.17
-- **Ícones:** Lucide React 0.460.0
-- **Temas:** Next Themes 0.4.3
+- **Tipografia:** Archivo (eixo de largura variável) e Public Sans, via `next/font`
+- **Temas:** Next Themes ("Papel" claro e "Blueprint" escuro)
 - **Utilitários:** 
   - Class Variance Authority 0.7.1
   - clsx 2.1.1
 
 ### Backend & Serviços
 - **Analytics:** Firebase 10.14.1
-- **Banco de Dados:** Firebase Firestore
+- **Banco de Dados:** Firebase Firestore (cópia de backup das mensagens)
+- **E-mail do formulário:** Resend, pela rota `src/app/api/contact/route.ts`
 - **Hospedagem:** Vercel
 
 ### Ferramentas de Desenvolvimento
@@ -120,103 +120,84 @@ npm run lint
 
 ### Navegação
 
-A aplicação possui navegação fluida entre as seções:
+Página única, com as seções:
 
-- **Home (#hero)** - Apresentação pessoal com efeitos visuais
-- **Sobre (#about)** - Informações pessoais e formação
-- **Experiência (#experience)** - Histórico profissional
-- **Habilidades (#skills)** - Tecnologias e competências
-- **Projetos (#projects)** - Portfólio de trabalhos realizados
-- **Certificações (#certifications)** - Cursos e certificados
-- **Contato (#contact)** - Formulário de contato e redes sociais
+- **Início (#inicio)** - Apresentação, diagrama de arquitetura dos sistemas em produção e ficha resumida
+- **Projetos (#projetos)** - Estudos de caso com desafio, solução, papel, decisões técnicas e telas; tabela com os demais projetos
+- **Sobre (#sobre)** - Texto, foto e números calculados a partir dos dados
+- **Tecnologias (#tecnologias)** - Stack agrupada por área, com o tempo de uso
+- **Trajetória (#trajetoria)** - Trabalho e formação na mesma linha do tempo
+- **Formação contínua (#formacao)** - Cursos com filtro por instituição e link para o certificado
+- **Contato (#contato)** - Canais diretos e formulário que envia e-mail
 
-### Funcionalidades Interativas
+### Identidade visual: "Prancha técnica"
 
-- **Modo escuro/claro** - Alternância de tema
-- **Animações suaves** - Transições com Framer Motion
-- **Efeitos visuais** - Partículas, grade futurística e linhas neurais
-- **Typewriter** - Animação de texto digitado
-- **Formulário de contato** - Integrado com Firebase
-- **Download de CV** - Link direto para o currículo
+O visual vem da documentação de engenharia: diagramas, legenda de prancha e tabelas de especificação.
+Tokens de cor ficam em `src/app/globals.css` (tema `papel` e tema `blueprint`, em canais RGB) e são expostos
+ao Tailwind em `tailwind.config.js` (`bg-papel`, `text-tinta`, `text-tinta-2`, `border-revisao`...). O vermelho
+de revisão é o único acento. Movimento só no carregamento do hero e em resposta a ações, respeitando
+`prefers-reduced-motion`.
+
+### Como editar o conteúdo
+
+Todo o conteúdo fica em `src/lib/data.ts`:
+
+| Exportação | O que controla |
+|---|---|
+| `personalInfo`, `socialLinks` | Nome, foto (`/foto.jpg`), contatos e currículo |
+| `projects` | Todos os projetos; os que não estão em um estudo de caso vão para a tabela "Outros projetos" |
+| `caseStudies` | Projetos em destaque: desafio, solução, papel, decisões técnicas, esquema e telas |
+| `projectContexts` | Coluna "Contexto" da tabela de outros projetos |
+| `systemArchitectures` | Abas do diagrama de arquitetura no início da página |
+| `experiences`, `education` | Linha do tempo da trajetória |
+| `skills` | Tecnologias; nível 85 ou mais aparece em destaque |
+| `certifications` | Formação contínua |
+
+As telas dos sistemas ficam em `public/telas/` (WebP). Use capturas com dados fictícios de demonstração e
+confirme a autorização antes de publicar telas de clientes.
 
 ## 📁 Estrutura do Projeto
 
 ```
 portifolio/
-├── public/                     # Arquivos estáticos
-│   ├── avatar.png             # Foto de perfil
-│   ├── documents/             # Documentos (CV, etc.)
-│   └── projects/              # Imagens dos projetos
+├── public/
+│   ├── foto.jpg                  # Foto de perfil
+│   ├── telas/                    # Telas dos sistemas (dados fictícios)
+│   ├── documents/                # Currículo
+│   └── projects/                 # Imagens de projetos
 ├── src/
-│   ├── app/                   # App Router do Next.js
-│   │   ├── globals.css        # Estilos globais
-│   │   ├── layout.tsx         # Layout principal
-│   │   └── page.tsx           # Página inicial
-│   ├── components/            # Componentes React
-│   │   ├── layout/            # Componentes de layout
-│   │   │   ├── Header.tsx     # Cabeçalho com navegação
-│   │   │   ├── Footer.tsx     # Rodapé
-│   │   │   ├── ThemeProvider.tsx # Provedor de tema
-│   │   │   └── ThemeToggle.tsx   # Alternador de tema
-│   │   ├── sections/          # Seções da página
-│   │   │   ├── HeroSection.tsx       # Seção principal
-│   │   │   ├── AboutSection.tsx      # Sobre mim
-│   │   │   ├── ExperienceSection.tsx # Experiência
-│   │   │   ├── SkillsSection.tsx     # Habilidades
-│   │   │   ├── ProjectsSection.tsx   # Projetos
-│   │   │   ├── CertificationsSection.tsx # Certificações
-│   │   │   └── ContactSection.tsx    # Contato
-│   │   └── ui/                # Componentes de interface
-│   │       ├── Button.tsx     # Botão reutilizável
-│   │       ├── Card.tsx       # Card de conteúdo
-│   │       ├── Input.tsx      # Campo de entrada
-│   │       └── ...           # Outros componentes UI
-│   ├── firebase/             # Configuração Firebase
-│   │   ├── config.ts         # Configuração do Firebase
-│   │   └── services.ts       # Serviços (Analytics, Firestore)
-│   ├── hooks/                # Hooks personalizados
-│   │   ├── useClientTheme.ts # Hook para tema
-│   │   ├── useTypewriter.ts  # Hook para animação de texto
-│   │   ├── useVisualEffects.ts # Hook para efeitos visuais
-│   │   └── ...              # Outros hooks
-│   ├── lib/                  # Utilitários e dados
-│   │   ├── data.ts          # Dados pessoais e projetos
-│   │   └── utils.ts         # Funções utilitárias
-│   └── types/               # Definições TypeScript
-│       └── index.ts         # Interfaces e tipos
-├── eslint.config.mjs        # Configuração ESLint
-├── next.config.ts           # Configuração Next.js
-├── tailwind.config.js       # Configuração Tailwind
-├── tsconfig.json           # Configuração TypeScript
-└── package.json            # Dependências e scripts
+│   ├── app/
+│   │   ├── api/contact/route.ts  # Envio de e-mail do formulário (Resend)
+│   │   ├── globals.css           # Tokens dos temas e estilos que o Tailwind não expressa
+│   │   ├── layout.tsx            # Fontes, tema, metadados e JSON-LD
+│   │   ├── opengraph-image.tsx   # Imagem de compartilhamento gerada no build
+│   │   ├── page.tsx              # Página inicial (componente de servidor)
+│   │   ├── robots.ts / sitemap.ts
+│   │   └── twitter-image.tsx
+│   ├── assets/fonts/             # Archivo (WOFF) usada na imagem de compartilhamento
+│   ├── components/
+│   │   ├── layout/               # Container, Header, Footer, ThemeToggle, AnalyticsTracker
+│   │   ├── sections/             # Seções, ArchitectureDiagram, CaseStudy, CaseSchematic, Timeline...
+│   │   └── ui/                   # Button, Input, Textarea, Screenshots
+│   ├── firebase/                 # Analytics e Firestore
+│   ├── hooks/useScrollspy.ts     # Seção ativa no menu
+│   ├── lib/                      # data.ts, site.ts, contact.ts, certificacoes.ts, utils.ts
+│   └── types/index.ts            # Tipos, incluindo CaseStudy e SystemArchitecture
+├── tailwind.config.js            # Tokens do design system
+└── next.config.ts                # Redirect de samucadev.vercel.app para samuca.tec.br
 ```
 
 ## ✨ Funcionalidades
 
-### 🎨 Interface e UX
-- **Design Responsivo** - Adaptável a todos os dispositivos
-- **Tema Escuro/Claro** - Alternância suave entre modos
-- **Animações Fluidas** - Transições e efeitos com Framer Motion
-- **Efeitos Visuais Futurísticos** - Partículas, gradientes e linhas neurais
-- **Navegação Suave** - Scroll suave entre seções
-
-### 🔧 Funcionalidades Técnicas
-- **SSR/SSG** - Renderização do lado do servidor com Next.js
-- **TypeScript** - Tipagem estática para maior confiabilidade
-- **Otimização de Performance** - Lazy loading e otimização de imagens
-- **SEO Otimizado** - Meta tags e estrutura semântica
-- **PWA Ready** - Configuração para Progressive Web App
-
-### 📊 Analytics e Tracking
-- **Google Analytics** - Acompanhamento de visitantes
-- **Event Tracking** - Rastreamento de interações
-- **Performance Monitoring** - Monitoramento de desempenho
-
-### 📧 Contato e Integração
-- **Formulário de Contato** - Integrado com Firebase
-- **Links Sociais** - Redirecionamento para redes sociais
-- **Download de CV** - Acesso direto ao currículo
-- **WhatsApp Integration** - Contato direto via WhatsApp
+- **Diagrama de arquitetura interativo** - Uma aba por sistema, com ligações destacadas ao passar o cursor ou tocar
+- **Estudos de caso** - Desafio, solução, papel, decisões técnicas, esquema e telas ampliáveis
+- **Linha do tempo** - Trabalho e formação com detalhes por item
+- **Temas Papel e Blueprint** - Seguem a preferência do sistema e ficam salvos
+- **Responsivo de 320px em diante** - Sem rolagem horizontal; no celular, tudo em uma coluna
+- **Acessibilidade** - Link para pular ao conteúdo, foco visível, abas e diálogos navegáveis por teclado
+- **SEO** - Metadados, canonical, sitemap, robots, JSON-LD e imagem de compartilhamento
+- **Contato** - Formulário com validação, anti-spam (honeypot e limite por IP) e envio por e-mail
+- **Analytics** - Visualização, profundidade de rolagem e envio do formulário (Firebase)
 
 ## 🤝 Contribuição
 

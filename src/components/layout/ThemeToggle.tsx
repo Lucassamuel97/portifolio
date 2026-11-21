@@ -1,45 +1,27 @@
 'use client';
 
-import { useCallback } from 'react';
-import { Moon, Sun } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { useClientTheme } from '@/hooks/useClientTheme';
+import { useTheme } from 'next-themes';
 
-export const ThemeToggle = () => {
-  const { mounted, setTheme, isDark } = useClientTheme();
+/**
+ * Alterna entre "Papel" (claro) e "Blueprint" (escuro).
+ * O destaque da opção ativa vem do atributo data-tema no <html>, aplicado antes da pintura,
+ * então o servidor e o navegador renderizam o mesmo HTML.
+ */
+export function ThemeToggle({ className = '' }: { className?: string }) {
+  const { resolvedTheme, setTheme } = useTheme();
 
-  const handleThemeToggle = useCallback(() => {
-    const newTheme = isDark ? 'light' : 'dark';
-    setTheme(newTheme);
-  }, [isDark, setTheme]);
+  const opcao =
+    'px-2.5 py-1 font-display text-rotulo font-medium largura-90 text-tinta-2 transition-colors duration-150';
 
-  // Sempre renderizar o mesmo HTML inicial para evitar hidratação mismatch
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={handleThemeToggle}
-      className="relative overflow-hidden transition-all duration-300 hover:scale-110"
-      aria-label={mounted ? `Alternar para tema ${isDark ? 'claro' : 'escuro'}` : 'Alternador de tema'}
-      disabled={!mounted}
+    <button
+      type="button"
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+      aria-label="Alternar entre o tema Papel (claro) e o tema Blueprint (escuro)"
+      className={`inline-flex min-h-11 items-center border border-tinta/90 p-[3px] md:min-h-0 ${className}`}
     >
-      <Sun 
-        className={`h-5 w-5 transition-all duration-500 ease-in-out ${
-          mounted && isDark ? 'rotate-90 scale-0 opacity-0' : 'rotate-0 scale-100 opacity-100'
-        }`} 
-      />
-      <Moon 
-        className={`absolute h-5 w-5 transition-all duration-500 ease-in-out ${
-          mounted && isDark ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-0 opacity-0'
-        }`} 
-      />
-      <span className="sr-only">
-        {mounted 
-          ? (isDark ? 'Mudar para tema claro' : 'Mudar para tema escuro')
-          : 'Carregando tema'
-        }
-      </span>
-    </Button>
+      <span className={`${opcao} [[data-tema=papel]_&]:bg-tinta [[data-tema=papel]_&]:text-papel`}>Papel</span>
+      <span className={`${opcao} [[data-tema=blueprint]_&]:bg-tinta [[data-tema=blueprint]_&]:text-papel`}>Blueprint</span>
+    </button>
   );
-};
-
+}

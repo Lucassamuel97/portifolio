@@ -1,145 +1,70 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require("tailwindcss/plugin");
+
+// Cores definidas como canais RGB em src/app/globals.css (tema "papel" e tema "blueprint")
+const cor = (nome) => `rgb(var(--${nome}) / <alpha-value>)`;
+
 module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/lib/**/*.{js,ts}",
   ],
-  darkMode: "class",
+  darkMode: ["selector", '[data-tema="blueprint"]'],
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: "#f0fdf4",
-          100: "#dcfce7",
-          200: "#bbf7d0",
-          300: "#86efac",
-          400: "#4ade80",
-          500: "#22c55e", // verde neon suave
-          600: "#16a34a",
-          700: "#15803d",
-          800: "#166534",
-          900: "#14532d",
-          950: "#052e16",
-        },
-        secondary: {
-          50: "#ffffff", // branco absoluto
-          100: "#fdfdfd",
-          200: "#fafafa",
-          300: "#f7f7f7",
-          400: "#f5f5f5",
-          500: "#f2f2f2", // cinza bem claro
-          600: "#ededed",
-          700: "#eaeaea",
-          800: "#e5e5e5",
-          900: "#e0e0e0",
-          950: "#dbdbdb",
-        },
-        gray: {
-          50: "#fafafa",
-          100: "#f4f4f5",
-          200: "#e4e4e7",
-          300: "#d4d4d8",
-          400: "#a1a1aa",
-          500: "#71717a",
-          600: "#52525b",
-          700: "#3f3f46",
-          800: "#27272a",
-          900: "#18181b",
-          950: "#09090b",
-        },
+        papel: { DEFAULT: cor("papel"), 2: cor("papel-2") },
+        tinta: { DEFAULT: cor("tinta"), 2: cor("tinta-2"), 3: cor("tinta-3") },
+        revisao: { DEFAULT: cor("revisao"), texto: cor("revisao-texto") },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        mono: ["var(--font-jetbrains-mono)", "monospace"],
+        display: ["var(--font-archivo)", "Arial Narrow", "system-ui", "sans-serif"],
+        sans: ["var(--font-public-sans)", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+      },
+      fontSize: {
+        rotulo: ["0.8125rem", { lineHeight: "1.4" }],
+        pequeno: ["0.9375rem", { lineHeight: "1.55" }],
+        base: ["1.0625rem", { lineHeight: "1.6" }],
+        medio: ["1.3125rem", { lineHeight: "1.35" }],
+        grande: ["1.75rem", { lineHeight: "1.15" }],
+        titulo: ["clamp(2rem, 1.4rem + 2.6vw, 3.5rem)", { lineHeight: "1", letterSpacing: "-0.03em" }],
+        frase: ["clamp(2.1rem, 1rem + 4.6vw, 4.75rem)", { lineHeight: "0.98", letterSpacing: "-0.035em" }],
+        display: ["clamp(2.2rem, 0.85rem + 6.3vw, 7.25rem)", { lineHeight: "0.93", letterSpacing: "-0.035em" }],
+      },
+      maxWidth: { pagina: "90rem" },
+      spacing: { secao: "clamp(4.5rem, 3rem + 7vw, 9rem)" },
+      transitionTimingFunction: { prancha: "cubic-bezier(0.2, 0.7, 0.2, 1)" },
+      keyframes: {
+        revelar: {
+          from: { clipPath: "inset(0 0 100% 0)", transform: "translateY(0.4em)" },
+          to: { clipPath: "inset(-0.2em 0 -0.2em 0)", transform: "none" },
+        },
+        surgir: {
+          from: { opacity: "0", transform: "translateY(6px)" },
+          to: { opacity: "1", transform: "none" },
+        },
       },
       animation: {
-        "fade-in": "fadeIn 0.5s ease-in-out",
-        "fade-in-up": "fadeInUp 0.6s ease-out",
-        "slide-in-left": "slideInLeft 0.5s ease-out",
-        "slide-in-right": "slideInRight 0.5s ease-out",
-        "bounce-slow": "bounce 2s infinite",
-        "pulse-slow": "pulse 3s infinite",
-        typewriter: "typewriter 3s steps(40) infinite",
-        blink: "blink 1s infinite",
-        "gradient-x": "gradient-x 15s ease infinite",
-        "gradient-y": "gradient-y 15s ease infinite",
-        "gradient-xy": "gradient-xy 15s ease infinite",
-      },
-      keyframes: {
-        fadeIn: {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
-        },
-        fadeInUp: {
-          "0%": { opacity: "0", transform: "translateY(30px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        slideInLeft: {
-          "0%": { opacity: "0", transform: "translateX(-30px)" },
-          "100%": { opacity: "1", transform: "translateX(0)" },
-        },
-        slideInRight: {
-          "0%": { opacity: "0", transform: "translateX(30px)" },
-          "100%": { opacity: "1", transform: "translateX(0)" },
-        },
-        typewriter: {
-          "0%": { width: "0" },
-          "50%": { width: "100%" },
-          "100%": { width: "0" },
-        },
-        blink: {
-          "0%, 50%": { opacity: "1" },
-          "51%, 100%": { opacity: "0" },
-        },
-        "gradient-y": {
-          "0%, 100%": {
-            "background-size": "400% 400%",
-            "background-position": "center top",
-          },
-          "50%": {
-            "background-size": "200% 200%",
-            "background-position": "center center",
-          },
-        },
-        "gradient-x": {
-          "0%, 100%": {
-            "background-size": "200% 200%",
-            "background-position": "left center",
-          },
-          "50%": {
-            "background-size": "200% 200%",
-            "background-position": "right center",
-          },
-        },
-        "gradient-xy": {
-          "0%, 100%": {
-            "background-size": "400% 400%",
-            "background-position": "left center",
-          },
-          "25%": {
-            "background-size": "400% 400%",
-            "background-position": "left bottom",
-          },
-          "50%": {
-            "background-size": "400% 400%",
-            "background-position": "right bottom",
-          },
-          "75%": {
-            "background-size": "400% 400%",
-            "background-position": "right center",
-          },
-        },
-      },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
-      backdropBlur: {
-        xs: "2px",
+        revelar: "revelar 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both",
+        surgir: "surgir 450ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards",
       },
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [
+    require("@tailwindcss/forms")({ strategy: "class" }),
+    // Largura da Archivo (eixo wdth): estreita para rótulos, expandida para títulos
+    plugin(({ addUtilities }) => {
+      addUtilities({
+        ".largura-82": { "font-stretch": "82%" },
+        ".largura-90": { "font-stretch": "90%" },
+        ".largura-100": { "font-stretch": "100%" },
+        ".largura-106": { "font-stretch": "106%" },
+        ".largura-112": { "font-stretch": "112%" },
+        ".largura-116": { "font-stretch": "116%" },
+        ".largura-125": { "font-stretch": "125%" },
+      });
+    }),
+  ],
 };
