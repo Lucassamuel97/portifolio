@@ -10,7 +10,7 @@ export interface Project {
   demoUrl?: string;
   category: "web" | "mobile" | "desktop" | "api" | "library";
   featured: boolean;
-  status: "completed" | "in-progress" | "planned";
+  status: "completed" | "in-progress" | "planned" | "production";
   views?: number;
   createdAt: Date;
   updatedAt: Date;
@@ -59,6 +59,7 @@ export interface Skill {
     | "database"
     | "devops"
     | "tools"
+    | "ai"
     | "other";
   level: number; // 1-100
   icon?: string;
@@ -275,4 +276,75 @@ export interface GtagFunction {
 
 export interface WindowWithGtag extends Window {
   gtag?: GtagFunction;
+}
+
+// ---------------------------------------------------------------------------
+// Redesign "Prancha técnica": estudos de caso e arquitetura dos sistemas
+// ---------------------------------------------------------------------------
+
+export interface Screenshot {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  caption: string;
+}
+
+export interface TechnicalDecision {
+  title: string;
+  text: string;
+}
+
+export type CaseSchematic = "imasp" | "social" | "sicoli" | "suporte" | "auditoria" | "contratos";
+
+export interface CaseStudy {
+  id: string;
+  /** Projetos (de `projects`) que o caso reúne; o primeiro dá ano, status e descrição */
+  projectIds: string[];
+  title?: string;
+  description?: string;
+  /** Linha de contexto abaixo do ano, ex.: "Boeing & Rocha, setor público" */
+  context?: string;
+  challenge: string;
+  solution: string;
+  role?: string;
+  decisions?: TechnicalDecision[];
+  schematic?: CaseSchematic;
+  schematicCaption?: string;
+  /** Imagem no lugar do esquema (ex.: projeto com tela pública) */
+  cover?: Screenshot;
+  screenshots?: Screenshot[];
+  /** Rótulos das partes quando o caso reúne vários projetos */
+  partLabels?: Record<string, string>;
+}
+
+export type FlowDirection = "in" | "out" | "both";
+
+export interface ArchitectureBlock {
+  title: string;
+  detail: string;
+}
+
+export interface ArchitectureIntegration {
+  id: string;
+  kind: string;
+  title: string;
+  detail: string;
+  direction: FlowDirection;
+}
+
+export interface SystemArchitecture {
+  id: string;
+  name: string;
+  people: ArchitectureBlock;
+  client: ArchitectureBlock;
+  app: ArchitectureBlock;
+  database: ArchitectureBlock;
+  worker?: ArchitectureBlock & { kind: string };
+  /** Por onde as integrações passam */
+  via: "app" | "worker";
+  integrations: ArchitectureIntegration[];
+  /** Ligações internas: [de, para, sentido em relação ao primeiro] */
+  edges: [string, string, FlowDirection][];
+  crossCutting: string[];
 }

@@ -7,16 +7,18 @@ import {
   Skill,
   Project,
   Certification,
+  CaseStudy,
+  SystemArchitecture,
 } from "@/types/index";
 
 export const personalInfo: PersonalInfo = {
   name: "Lucas Samuel Pereira Godoy",
   title: "Desenvolvedor Full-Stack",
-  bio: "Desenvolvedor Full-stack | Especialista em sistemas de gestão para o setor público. Domínio de PHP (Laravel, CodeIgniter), Java (Spring Boot) e front-end moderno (React.js, Next.js, Tailwind, Bootstrap, JavaScript/TypeScript). Experiência em DDD, Clean Architecture, Microsserviços, bancos de dados MySQL/PostgreSQL e DevOps (Docker, CI/CD, GitHub Actions). Apaixonado por criar soluções que modernizam e automatizam processos.",
+  bio: "Desenvolvedor Full-stack | Especialista em sistemas de gestão para o setor público. Domínio de PHP (Laravel, CodeIgniter), Java (Spring Boot) e front-end moderno (React.js, Next.js, Tailwind, Bootstrap, JavaScript/TypeScript). Experiência em DDD, Clean Architecture, Microsserviços, bancos de dados MySQL/PostgreSQL e DevOps (Docker, CI/CD, GitHub Actions). Cursando MBA em Engenharia de Software com Inteligência Artificial (Full Cycle), com aplicação de RAG e LLMs em sistemas para o setor público. Apaixonado por criar soluções que modernizam e automatizam processos.",
   location: "Palmital, Paraná, Brasil - CEP: 85270-000",
   email: "lukassamuka88@gmail.com",
   phone: "+5542998300659",
-  avatar: "/avatar.png",
+  avatar: "/foto.jpg",
   resume: "/documents/lucas-samuel-pereira-curriculo.pdf",
   timezone: "America/Sao_Paulo",
   languages: [
@@ -36,13 +38,11 @@ export const personalInfo: PersonalInfo = {
 };
 
 export const navigationItems: NavigationItem[] = [
-  { label: "Início", href: "#hero" },
-  { label: "Sobre", href: "#about" },
-  { label: "Experiência", href: "#experience" },
-  { label: "Habilidades", href: "#skills" },
-  { label: "Projetos", href: "#projects" },
-  { label: "Certificações", href: "#certifications" },
-  { label: "Contato", href: "#contact" },
+  { label: "Projetos", href: "#projetos" },
+  { label: "Sobre", href: "#sobre" },
+  { label: "Tecnologias", href: "#tecnologias" },
+  { label: "Trajetória", href: "#trajetoria" },
+  { label: "Contato", href: "#contato" },
 ];
 
 export const socialLinks: SocialLink[] = [
@@ -74,14 +74,34 @@ export const socialLinks: SocialLink[] = [
 
 export const education: Education[] = [
   {
+    id: "3",
+    degree: "MBA em Engenharia de Software com Inteligência Artificial",
+    institution: "Full Cycle",
+    institutionUrl: "https://fullcycle.com.br",
+    location: "On-line",
+    period: {
+      start: new Date("2026-04-01"),
+      end: new Date("2027-04-30"), // previsão de conclusão
+    },
+    description:
+      "MBA voltado a integrar inteligência artificial ao desenvolvimento de software, com projetos práticos de RAG, busca semântica, avaliação de prompts e documentação de design gerada com IA.",
+    relevantCourses: [
+      "Fundamentos de IA Generativa",
+      "Prompt Engineering",
+      "Design Docs com IA",
+      "Geração aumentada de recuperação (RAG)",
+      "Inteligência artificial",
+    ],
+  },
+  {
     id: "1",
     degree: "Tecnólogo em Sistemas para Internet",
     institution: "Universidade Tecnológica Federal do Paraná",
     institutionUrl: "https://utfpr.edu.br",
     location: "Guarapuava, Paraná, Brasil",
     period: {
-      start: new Date("2017-07-05"),
-      end: new Date("2022-12-31"),
+      start: new Date("2017-06-01"),
+      end: new Date("2022-01-31"),
     },
     description:
       "Curso superior voltado ao desenvolvimento web, abrangendo programação, arquitetura de software, bancos de dados, redes e sistemas distribuídos. Ênfase em práticas modernas e projetos aplicados ao setor de tecnologia.",
@@ -128,9 +148,9 @@ export const experiences: Experience[] = [
   {
     id: "1",
     title: "Full-stack Developer",
-    company: "Boeing e Rocha",
+    company: "Boeing & Rocha",
     companyUrl: "",
-    location: "Paraná, Brasil",
+    location: "Palmital, Paraná, Brasil",
     period: {
       start: new Date("2018-03-01"),
       end: null, // Emprego atual
@@ -145,6 +165,13 @@ export const experiences: Experience[] = [
       "Integração com SIM-AM e implementação de notificações por e-mail para reduzir riscos de inconformidade",
       "Manutenção e evolução de sistema para postos de saúde, implementando novos módulos (agendamento, estoque)",
       "Garantia da escalabilidade do projeto ao seguir a arquitetura HMVC",
+      "Reescrita de sistemas legados (PHP sem framework, MyISAM/latin1) em Laravel 13, React 19 e Inertia.js, com integridade referencial, trilha de auditoria, testes automatizados e Docker",
+      "Desenvolvimento do IMASP Saúde: beneficiários, convênios, requisições com fluxo de aprovação rastreável e cálculo automático de co-participação",
+      "Desenvolvimento do novo Controle Social (SUAS): atendimentos, famílias, benefícios eventuais, oficinas, índice de vulnerabilidade e importação do CadÚnico",
+      "Migração dos dados dos sistemas legados para as novas bases, com importadores dedicados",
+      "Desenvolvimento do Sicoli, produto da Boeing & Rocha para controle interno de licitações, com integração ao PNCP e pareceres validados por IA (OpenAI e Gemini)",
+      "Desenvolvimento do Examini, plataforma de auditorias públicas com gestão de achados, anexos, permissões, notificações por e-mail e relatórios",
+      "Manuais do Controle Social e do IMASP gerados com IA (110 artigos em Markdown no Social, ajuda por tela, busca e capturas de tela geradas por script), usados como base de conhecimento do atendimento por IA da central de chamados",
     ],
     technologies: [
       "PHP",
@@ -158,6 +185,10 @@ export const experiences: Experience[] = [
       "Ajax",
       "Git",
       "Next.js",
+      "React",
+      "Inertia.js",
+      "Docker",
+      "PHPUnit",
       "Trello",
     ],
     type: "full-time",
@@ -166,6 +197,7 @@ export const experiences: Experience[] = [
       "Automatizou geração de relatórios mensais (RMA) e implementou visualização de dados com georreferenciamento",
       "Criou aplicação para monitoramento de contratos públicos com integração SIM-AM e notificações automáticas",
       "Manteve e evoluiu sistema para postos de saúde seguindo arquitetura HMVC",
+      "Reescrita em stack moderna dos sistemas IMASP Saúde e Controle Social (SUAS), com mais de 1.500 commits em 2026",
     ],
   },
   {
@@ -173,7 +205,7 @@ export const experiences: Experience[] = [
     title: "Assistente Administrativo",
     company: "Supermercado Oeste",
     companyUrl: "",
-    location: "Paraná, Brasil",
+    location: "Santa Maria do Oeste, Paraná, Brasil",
     period: {
       start: new Date("2014-01-01"),
       end: new Date("2018-01-31"),
@@ -203,7 +235,7 @@ export const skills: Skill[] = [
     category: "frontend",
     level: 95,
     icon: "html5",
-    experience: "6 anos",
+    experience: "8 anos",
   },
   {
     id: "2",
@@ -211,7 +243,7 @@ export const skills: Skill[] = [
     category: "frontend",
     level: 90,
     icon: "css3",
-    experience: "6 anos",
+    experience: "8 anos",
   },
   {
     id: "3",
@@ -219,7 +251,7 @@ export const skills: Skill[] = [
     category: "frontend",
     level: 90,
     icon: "javascript",
-    experience: "6 anos",
+    experience: "8 anos",
     projects: ["project-1", "project-2", "project-3"],
   },
   {
@@ -255,7 +287,7 @@ export const skills: Skill[] = [
     category: "frontend",
     level: 85,
     icon: "jquery",
-    experience: "6 anos",
+    experience: "8 anos",
     projects: ["project-1", "project-2", "project-3"],
   },
   {
@@ -264,7 +296,7 @@ export const skills: Skill[] = [
     category: "frontend",
     level: 92,
     icon: "bootstrap",
-    experience: "6 anos",
+    experience: "8 anos",
     projects: ["project-1", "project-2", "project-3"],
   },
   {
@@ -309,7 +341,7 @@ export const skills: Skill[] = [
     category: "backend",
     level: 95,
     icon: "php",
-    experience: "6 anos",
+    experience: "8 anos",
     projects: ["project-1", "project-2", "project-3"],
   },
   {
@@ -389,7 +421,7 @@ export const skills: Skill[] = [
     category: "database",
     level: 98,
     icon: "mysql",
-    experience: "6 anos",
+    experience: "8 anos",
     projects: ["project-1", "project-2", "project-3"],
   },
   {
@@ -433,7 +465,7 @@ export const skills: Skill[] = [
     category: "database",
     level: 95,
     icon: "sql",
-    experience: "6 anos",
+    experience: "8 anos",
     projects: ["project-1", "project-2", "project-3"],
   },
 
@@ -538,7 +570,7 @@ export const skills: Skill[] = [
     category: "tools",
     level: 85,
     icon: "git",
-    experience: "6 anos",
+    experience: "8 anos",
   },
   {
     id: "40",
@@ -586,7 +618,7 @@ export const skills: Skill[] = [
     category: "tools",
     level: 90,
     icon: "trello",
-    experience: "6 anos",
+    experience: "8 anos",
   },
   {
     id: "46",
@@ -678,6 +710,115 @@ export const skills: Skill[] = [
     level: 55,
     icon: "apigateway",
     experience: "1 ano",
+  },
+  // Inteligência artificial (níveis estimados a partir dos projetos no GitHub; ajustar se necessário)
+  {
+    id: "59",
+    name: "RAG (Retrieval-Augmented Generation)",
+    category: "ai",
+    level: 75,
+    icon: "rag",
+    experience: "1 ano",
+    projects: ["project-13", "project-16"],
+  },
+  {
+    id: "60",
+    name: "Prompt Engineering",
+    category: "ai",
+    level: 80,
+    icon: "prompt",
+    experience: "1 ano",
+    projects: ["project-15"],
+  },
+  {
+    id: "61",
+    name: "Embeddings e busca semântica",
+    category: "ai",
+    level: 70,
+    icon: "embeddings",
+    experience: "1 ano",
+    projects: ["project-13", "project-16"],
+  },
+  {
+    id: "62",
+    name: "MCP (Model Context Protocol)",
+    category: "ai",
+    level: 70,
+    icon: "mcp",
+    experience: "1 ano",
+    projects: ["project-13"],
+  },
+  {
+    id: "63",
+    name: "APIs de LLM (OpenAI e Gemini)",
+    category: "ai",
+    level: 75,
+    icon: "llm",
+    experience: "1 ano",
+    projects: ["project-12", "project-13"],
+  },
+  {
+    id: "64",
+    name: "LangChain",
+    category: "ai",
+    level: 65,
+    icon: "langchain",
+    experience: "1 ano",
+    projects: ["project-16"],
+  },
+  {
+    id: "65",
+    name: "pgVector",
+    category: "ai",
+    level: 60,
+    icon: "pgvector",
+    experience: "1 ano",
+    projects: ["project-16"],
+  },
+  {
+    id: "66",
+    name: "LangSmith",
+    category: "ai",
+    level: 60,
+    icon: "langsmith",
+    experience: "1 ano",
+    projects: ["project-15"],
+  },
+  {
+    id: "67",
+    name: "Claude Code",
+    category: "ai",
+    level: 80,
+    icon: "claude",
+    experience: "1 ano",
+    projects: ["project-14"],
+  },
+  {
+    id: "70",
+    name: "Agentes de IA",
+    category: "ai",
+    level: 70,
+    icon: "agents",
+    experience: "1 ano",
+    projects: ["project-22"],
+  },
+  {
+    id: "68",
+    name: "Inertia.js",
+    category: "frontend",
+    level: 85,
+    icon: "inertia",
+    experience: "9 meses",
+    projects: ["project-10", "project-11", "project-12"],
+  },
+  {
+    id: "69",
+    name: "Python",
+    category: "backend",
+    level: 60,
+    icon: "python",
+    experience: "6 meses",
+    projects: ["project-15", "project-16"],
   },
   {
     id: "58",
@@ -872,16 +1013,16 @@ export const projects: Project[] = [
     description:
       "Plataforma para planejamento, execução e controle de auditorias públicas, focada em eficiência e transparência.",
     longDescription:
-      "O Examini é um sistema desenvolvido para auxiliar auditores públicos em todas as etapas do processo de auditoria, desde o planejamento até o controle final. Sua interface intuitiva e recursos avançados tornam os processos mais organizados, ágeis e transparentes, permitindo que órgãos públicos reduzam o tempo gasto em tarefas administrativas, aumentem a precisão dos resultados e garantam maior eficiência na gestão das auditorias.",
+      "O Examini é um sistema desenvolvido para auxiliar auditores públicos em todas as etapas do processo de auditoria, desde o planejamento até o controle final. Sua interface intuitiva e recursos avançados tornam os processos mais organizados, ágeis e transparentes, permitindo que órgãos públicos reduzam o tempo gasto em tarefas administrativas, aumentem a precisão dos resultados e garantam maior eficiência na gestão das auditorias. Reúne cadastro e acompanhamento de auditorias, controle de achados, anexos e documentos, usuários e permissões, notificações por e-mail, relatórios com exportação e histórico de ações.",
     image: "",
-    technologies: ["PHP", "Laravel", "MySQL", "Bootstrap"],
+    technologies: ["PHP", "Laravel 10", "MySQL", "Blade", "Bootstrap", "JavaScript", "PHPUnit"],
     githubUrl: "",
     liveUrl: "https://examini.site/",
     category: "web",
     featured: true,
-    status: "in-progress",
+    status: "production",
     createdAt: new Date("2025-02-01"),
-    updatedAt: new Date("2025-08-01"),
+    updatedAt: new Date("2026-10-27"),
   },
   {
     id: "project-8",
@@ -936,6 +1077,227 @@ export const projects: Project[] = [
     status: "completed",
     createdAt: new Date("2024-01-15"),
     updatedAt: new Date("2025-06-01"),
+  },
+  {
+    id: "project-10",
+    title: "IMASP Saúde - Gestão de Assistência à Saúde do Servidor",
+    description:
+      "Sistema de gestão do Instituto Municipal de Assistência à Saúde de Palmeira (IMASP), que substitui um legado com mais de uma década de uso.",
+    longDescription:
+      "Reescrita completa do sistema do IMASP, que atende servidores municipais ativos, aposentados, pensionistas e dependentes. O legado em MyISAM/latin1, sem testes e com regras espalhadas, deu lugar a uma aplicação com integridade referencial, trilha de auditoria de quem fez o quê, cálculo automático e auditável de co-participação e fluxo de aprovação rastreável de requisições. Cobre beneficiários, convênios, procedimentos (CBHPM), internações, parcelamentos com remessa para a folha e fechamento mensal com conferência.",
+    image: "",
+    technologies: ["PHP 8.3", "Laravel 13", "React 19", "Inertia.js", "Tailwind CSS 4", "MySQL", "MariaDB", "PHPUnit", "Larastan", "Docker"],
+    githubUrl: "",
+    liveUrl: "",
+    category: "web",
+    featured: true,
+    status: "production",
+    createdAt: new Date("2026-05-25"),
+    updatedAt: new Date("2026-11-20"),
+  },
+  {
+    id: "project-11",
+    title: "Controle Social (SUAS) - Reescrita do sistema da assistência social",
+    description:
+      "Nova versão do sistema de gestão do SUAS de um município paranaense: CRAS, CREAS, acolhimento, programas e benefícios eventuais.",
+    longDescription:
+      "Reescrita do Controle Social, sistema que concentra a operação da assistência social do município. O legado em PHP 5.6 sem framework, com 101 tabelas e nenhuma chave estrangeira, guardava mais de 100 mil atendimentos desde 2015. A nova versão reorganiza famílias e pessoas, atendimentos, visitas e ocorrências, benefícios eventuais, oficinas com inscrições e presenças, programas habitacionais e o índice de vulnerabilidade das famílias, com importação do CadÚnico em fila e migração dos dados do legado.",
+    image: "",
+    technologies: ["PHP", "Laravel 13", "React 19", "Inertia.js", "Tailwind CSS", "MySQL", "Filas (queue)", "Docker"],
+    githubUrl: "",
+    liveUrl: "",
+    category: "web",
+    featured: true,
+    status: "production",
+    createdAt: new Date("2026-09-28"),
+    updatedAt: new Date("2026-11-20"),
+  },
+  {
+    id: "project-12",
+    title: "Sicoli - Controle Interno de Licitações Públicas",
+    description:
+      "Controle interno de licitações municipais, do planejamento à homologação, com integração ao PNCP e pareceres validados por IA.",
+    longDescription:
+      "Produto da Boeing & Rocha, o Sicoli centraliza o processo licitatório de prefeituras em um único sistema: cadastro e linha do tempo de cada licitação, checklists de conformidade legal, contratos e aditivos, painel gerencial e impressão seletiva. Importa contratações, itens, resultados e documentos direto do PNCP, evitando redigitação. Os pareceres são redigidos a partir de modelos e validados por IA, que confere se o texto bate com os dados oficiais do processo e ajusta a redação, com suporte a OpenAI e Google Gemini e chave de acesso criptografada.",
+    image: "",
+    technologies: ["PHP", "Laravel", "React", "Inertia.js", "TypeScript", "MySQL", "Integração PNCP", "OpenAI", "Google Gemini"],
+    githubUrl: "",
+    liveUrl: "",
+    category: "web",
+    featured: true,
+    status: "production",
+    createdAt: new Date("2026-02-05"),
+    updatedAt: new Date("2026-11-16"),
+  },
+  {
+    id: "project-22",
+    title: "Atendimento por IA na central de chamados",
+    description:
+      "Assistente de IA que responde os chamados dos sistemas a partir dos manuais e passa para a equipe de suporte o que foge do escopo.",
+    longDescription:
+      "Na central de chamados da Boeing & Rocha, os usuários do Controle Social e do IMASP abrem chamados de dentro do próprio sistema. Um assistente com Claude responde primeiro, consultando os manuais e artigos de conhecimento dos sistemas, com regras para não sair do escopo. Quando o manual não cobre a dúvida, o cliente pede um atendente ou o assunto é sigiloso, o chamado passa para a equipe, que é avisada por e-mail. Há teto mensal de tokens e limite de respostas por chamado. Projeto em equipe: fiquei com a base de conhecimento, os manuais gerados com IA que o assistente consulta (no Controle Social, 110 artigos com ajuda por tela, busca e capturas de tela geradas por script).",
+    image: "",
+    technologies: ["Laravel 13", "React 19", "Inertia.js", "Claude (Anthropic)", "Prompt caching", "Markdown", "Reverb", "PHPUnit"],
+    githubUrl: "",
+    liveUrl: "",
+    category: "web",
+    featured: true,
+    status: "production",
+    createdAt: new Date("2026-11-06"),
+    updatedAt: new Date("2026-11-17"),
+  },
+  {
+    id: "project-13",
+    title: "FAQ Inteligente para Prefeitura (MCP + RAG)",
+    description:
+      "FAQ dinâmico que responde perguntas buscando em leis, regulamentos e serviços da prefeitura com RAG e embeddings do Google Gemini.",
+    longDescription:
+      "Sistema de perguntas e respostas baseado em IA que usa o protocolo MCP (Model Context Protocol) com RAG para buscar informações em documentos oficiais da prefeitura. Os documentos são cadastrados em uma área administrativa e indexados com embeddings do Google Gemini para busca semântica. Totalmente containerizado com Docker.",
+    image: "",
+    technologies: ["PHP 8.4", "MCP", "RAG", "Google Gemini", "Embeddings", "MySQL 8", "Bootstrap 5", "Docker"],
+    githubUrl: "https://github.com/Lucassamuel97/FAQ-Inteligente",
+    liveUrl: "",
+    category: "web",
+    featured: false,
+    status: "completed",
+    createdAt: new Date("2025-08-16"),
+    updatedAt: new Date("2025-08-16"),
+  },
+  {
+    id: "project-14",
+    title: "Plugins de arquitetura para o Claude Code",
+    description:
+      "Marketplace de plugins para o Claude Code que automatizam ADRs, diagramas C4 e Mermaid, análise arquitetural e guias de desenvolvimento.",
+    longDescription:
+      "Coleção de quatro plugins para o Claude Code voltados à arquitetura de software e à documentação de design: gestão de Architecture Decision Records, geração de diagramas C4 (PlantUML) e Mermaid a partir de Feature Design Documents, análise arquitetural com auditoria de dependências e geração de guias de desenvolvimento por linguagem.",
+    image: "",
+    technologies: ["Claude Code", "ADRs", "C4 Model", "PlantUML", "Mermaid"],
+    githubUrl: "https://github.com/Lucassamuel97/claude-plugins",
+    liveUrl: "",
+    category: "library",
+    featured: false,
+    status: "completed",
+    createdAt: new Date("2026-06-29"),
+    updatedAt: new Date("2026-06-30"),
+  },
+  {
+    id: "project-15",
+    title: "Otimização e avaliação de prompts (MBA)",
+    description:
+      "Prompt que converte relatos de bug em User Stories, otimizado com Role Prompting, Few-shot e Chain of Thought e avaliado no LangSmith.",
+    longDescription:
+      "Desafio do MBA em Engenharia de Software com IA: otimização de um prompt para transformar bugs em User Stories, avaliado no LangSmith com 5 métricas customizadas e média de 0,9684. Executado com Docker e Makefile.",
+    image: "",
+    technologies: ["Python", "Prompt Engineering", "LangSmith", "Docker"],
+    githubUrl: "https://github.com/Lucassamuel97/mba-ia-pull-evaluation-prompt",
+    liveUrl: "",
+    category: "library",
+    featured: false,
+    status: "completed",
+    createdAt: new Date("2026-06-09"),
+    updatedAt: new Date("2026-06-23"),
+  },
+  {
+    id: "project-16",
+    title: "Ingestão e busca semântica com pgVector (MBA)",
+    description:
+      "Pipeline de ingestão de documentos e busca semântica com LangChain e PostgreSQL com pgVector.",
+    longDescription:
+      "Desafio do MBA em Engenharia de Software com IA: ingestão de documentos em vetores e busca semântica sobre eles, usando LangChain e PostgreSQL com a extensão pgVector.",
+    image: "",
+    technologies: ["Python", "LangChain", "PostgreSQL", "pgVector", "RAG"],
+    githubUrl: "https://github.com/Lucassamuel97/mba-ia-desafio-ingestao-busca",
+    liveUrl: "",
+    category: "library",
+    featured: false,
+    status: "completed",
+    createdAt: new Date("2026-04-28"),
+    updatedAt: new Date("2026-04-28"),
+  },
+  {
+    id: "project-17",
+    title: "Design docs gerados com IA (MBA)",
+    description:
+      "Pacote de PRD, RFC, FDD, ADRs e tracker de uma feature de webhooks, gerado por IA a partir da transcrição de uma reunião técnica.",
+    longDescription:
+      "Desafio do MBA em Engenharia de Software com IA: a partir da transcrição de uma reunião técnica, a IA gera toda a documentação de design de uma feature de webhooks, publicada como documentação viva em HTML que se re-ancora ao código.",
+    image: "",
+    technologies: ["IA generativa", "PRD", "RFC", "ADRs", "TypeScript", "HTML"],
+    githubUrl: "https://github.com/Lucassamuel97/mba-ia-desafio-design-docs-com-ia",
+    liveUrl: "https://lucassamuel97.github.io/mba-ia-desafio-design-docs-com-ia/",
+    category: "library",
+    featured: false,
+    status: "completed",
+    createdAt: new Date("2026-07-10"),
+    updatedAt: new Date("2026-07-16"),
+  },
+  {
+    id: "project-18",
+    title: "Laboratório de performance Laravel",
+    description:
+      "Laboratório 100% em Docker para medir o impacto de OPcache, Octane/Swoole, HAProxy e observabilidade no desempenho do Laravel.",
+    longDescription:
+      "Laboratório de performance e escalabilidade para aplicações Laravel modernas, totalmente containerizado: PHP 8.4, Laravel Octane com Swoole, OPcache, HAProxy, Prometheus e Grafana, com benchmarks em wrk comparando cada otimização etapa por etapa.",
+    image: "",
+    technologies: ["PHP 8.4", "Laravel Octane", "Swoole", "OPcache", "HAProxy", "Prometheus", "Grafana", "Docker"],
+    githubUrl: "https://github.com/Lucassamuel97/lab-laravel-performance",
+    liveUrl: "",
+    category: "library",
+    featured: false,
+    status: "in-progress",
+    createdAt: new Date("2026-07-14"),
+    updatedAt: new Date("2026-07-14"),
+  },
+  {
+    id: "project-19",
+    title: "Template Laravel com DDD, Clean Architecture e TDD",
+    description:
+      "Template de API RESTful em Laravel 13 e PHP 8.3 seguindo DDD, Clean Architecture e TDD, com MySQL e Docker.",
+    longDescription:
+      "Base para novas APIs RESTful em Laravel 13 e PHP 8.3+, organizada segundo Domain-Driven Design, Clean Architecture e Test-Driven Development, com MySQL e ambiente em Docker.",
+    image: "",
+    technologies: ["PHP 8.3", "Laravel 13", "DDD", "Clean Architecture", "TDD", "MySQL", "Docker"],
+    githubUrl: "https://github.com/Lucassamuel97/laravel_ddd",
+    liveUrl: "",
+    category: "api",
+    featured: false,
+    status: "completed",
+    createdAt: new Date("2026-03-26"),
+    updatedAt: new Date("2026-04-14"),
+  },
+  {
+    id: "project-20",
+    title: "Carteira financeira (desafio full-stack)",
+    description:
+      "Carteira financeira com depósito, transferência e reversão de operações, em arquitetura DDD-lite e com cobertura de testes.",
+    longDescription:
+      "Implementação de um desafio de carteira financeira com foco em arquitetura DDD-lite, operações financeiras seguras (depósito, transferência e reversão) e cobertura de testes.",
+    image: "",
+    technologies: ["PHP", "Laravel", "DDD", "Testes automatizados"],
+    githubUrl: "https://github.com/Lucassamuel97/desafio-full-stack-wallet",
+    liveUrl: "",
+    category: "web",
+    featured: false,
+    status: "completed",
+    createdAt: new Date("2026-03-30"),
+    updatedAt: new Date("2026-04-01"),
+  },
+  {
+    id: "project-21",
+    title: "Sistema de reservas com DDD e TDD",
+    description:
+      "Domínio de reservas (booking) evoluído guiado por testes, com Clean Code, separação de responsabilidades e design orientado ao domínio.",
+    longDescription:
+      "Projeto para aprofundar Test-Driven Development em um domínio de sistema de reservas: o código evolui guiado por testes, aplicando Clean Code, separação de responsabilidades e Domain-Driven Design. Vinculado ao curso de TDD da Full Cycle.",
+    image: "",
+    technologies: ["TypeScript", "TDD", "DDD", "Clean Code", "Testes end-to-end"],
+    githubUrl: "https://github.com/Lucassamuel97/booking-ddd-tdd",
+    liveUrl: "",
+    category: "library",
+    featured: false,
+    status: "completed",
+    createdAt: new Date("2026-03-18"),
+    updatedAt: new Date("2026-04-02"),
   },
 ];
 
@@ -1155,5 +1517,336 @@ export const certifications: Certification[] = [
     hours: "57 horas",
     instructors: "Jorge Sant Ana",
     url: "https://www.udemy.com/certificate/UC-b06ae732-90e3-4e8a-aa1a-0b1a913e1e19/",
+  },
+  {
+    id: "19",
+    title: "TDD - Test Driven Development",
+    description:
+      "Curso sobre desenvolvimento orientado a testes e testes end-to-end, aplicado no projeto booking-ddd-tdd, um sistema de reservas evoluído guiado por testes.",
+    organization: "Full Cycle",
+    certificateCode: "2cbd1a1f-01df-43c4-bb33-35bbb5e4bfd5",
+    period: "04/2026",
+    hours: "30 horas",
+    instructors: "Full Cycle",
+    url: "https://fullcycle.com.br/certificado/2cbd1a1f-01df-43c4-bb33-35bbb5e4bfd5",
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Estudos de caso (projetos em destaque). Desafio, solução, papel e decisões
+// foram escritos a partir dos documentos de design e do código de cada projeto.
+// ---------------------------------------------------------------------------
+export const caseStudies: CaseStudy[] = [
+  {
+    id: "imasp",
+    projectIds: ["project-10"],
+    title: "IMASP Saúde: gestão da assistência à saúde do servidor",
+    context: "Boeing & Rocha, setor público",
+    challenge:
+      "Substituir um legado de mais de uma década, sem testes e com regras de co-participação espalhadas, que acumula mais de 300 mil parcelas de débitos.",
+    solution:
+      "Uma aplicação nova com integridade referencial, trilha de auditoria, cálculo automático e auditável da co-participação e aprovação rastreável das requisições.",
+    role: "Desenvolvo o sistema em dupla e sou autor de 71% dos commits (577 de 816).",
+    decisions: [
+      {
+        title: "Auditoria que não se apaga sem deixar rastro.",
+        text: "Trilha só no banco, com hash encadeado e mascaramento de dados pessoais (LGPD); registros antigos vão para uma tabela fria todo dia às 3h.",
+      },
+      {
+        title: "Remessa imutável por desenho.",
+        text: "A remessa enviada à folha nunca muda: as diferenças com as parcelas do mês são calculadas na hora, nunca gravadas. Na conferência com o RH, a prévia mostrada ao operador nunca é a fonte do que é gravado.",
+      },
+      {
+        title: "Uma fonte só para cada regra.",
+        text: "A co-participação é progressiva por titular no mês civil (30%, 50% e 70%), calculada pelo sistema e sobrescrita apenas por administrador.",
+      },
+      {
+        title: "Performance com critério.",
+        text: "Uma auditoria com 31 achados conferidos no código; filas foram descartadas onde não se pagavam (DMED, IR, carteirinha) e o Redis ficou para depois, porque o servidor não tem.",
+      },
+    ],
+    schematic: "imasp",
+    schematicCaption: "Fluxo de uma requisição. O código e as telas não são públicos.",
+    screenshots: [
+      {
+        src: "/telas/imasp-requisicao.webp",
+        width: 1600,
+        height: 1000,
+        alt: "Tela do IMASP Saúde: requisição aprovada com valor total, co-participação de 30% e valor a pagar",
+        caption: "Requisição aprovada: a co-participação de 30% é calculada pelo sistema, com auditoria logo abaixo.",
+      },
+      {
+        src: "/telas/imasp-diferencas.webp",
+        width: 1600,
+        height: 1000,
+        alt: "Tela do IMASP Saúde: diferenças entre o retrato congelado da conferência e a contagem do dia",
+        caption: "Fechamento do mês: o retrato da conferência fica congelado e as diferenças são calculadas ao vivo.",
+      },
+    ],
+  },
+  {
+    id: "controle-social",
+    projectIds: ["project-11"],
+    title: "Controle Social: reescrita do sistema do SUAS",
+    context: "Boeing & Rocha, setor público",
+    challenge:
+      "Reescrever um sistema em PHP 5.6 sem framework, com 101 tabelas e nenhuma chave estrangeira, sem perder os mais de 100 mil atendimentos registrados desde 2015.",
+    solution:
+      "Uma nova versão em Laravel, React e Inertia, com importadores que trazem unidades, atendimentos e oficinas do legado, e importação do CadÚnico em fila.",
+    role: "Desenvolvo a reescrita em dupla e sou autor de 77% dos commits (965 de 1.247).",
+    decisions: [
+      {
+        title: "Importação em duas fases.",
+        text: "O CadÚnico passa por uma análise só de leitura com prévia, o administrador confirma e só então a gravação roda em fila. O mesmo planejador conta e grava, sem tabelas de staging.",
+      },
+      {
+        title: "Arquivo grande sem estourar memória.",
+        text: "Até 256 MB lidos linha a linha, uma família por vez, com pico medido de 134 MiB; o tempo de nova tentativa da fila é maior que o timeout do job, para ele nunca rodar duas vezes.",
+      },
+      {
+        title: "Linha do tempo aberta, campos fechados.",
+        text: "Toda unidade vê que um registro existe na história da família, mas o relato só abre para a unidade de origem e os autorizados. Permissões por ação e por unidade, sempre no servidor.",
+      },
+      {
+        title: "Geocodificação econômica.",
+        text: "O endereço é procurado primeiro no CNEFE do IBGE, localmente, e só depois no Nominatim, em lotes de 100 com trava para não haver lotes simultâneos.",
+      },
+    ],
+    schematic: "social",
+    schematicCaption: "Migração do legado e importação do CadÚnico. O código e as telas não são públicos.",
+    screenshots: [
+      {
+        src: "/telas/social-ficha.webp",
+        width: 1280,
+        height: 800,
+        alt: "Tela do Controle Social: ficha da família com vulnerabilidade, grupos, programas e ações de atendimento",
+        caption: "Ficha da família: atender, agendar, inscrever em grupo e pedir benefício a partir de um lugar só.",
+      },
+      {
+        src: "/telas/social-mapa.webp",
+        width: 1024,
+        height: 592,
+        alt: "Tela do Controle Social: mapa do território com bairros e pontos das famílias",
+        caption: "Mapa do território, com os endereços das famílias geocodificados em lote.",
+      },
+    ],
+  },
+  {
+    id: "sicoli",
+    projectIds: ["project-12"],
+    title: "Sicoli: controle interno de licitações públicas",
+    context: "Produto da Boeing & Rocha",
+    challenge: "Tirar o controle de licitações das planilhas e evitar a redigitação de dados que já estão no PNCP.",
+    solution:
+      "Um sistema único do planejamento à homologação, que importa processos do PNCP e usa IA para conferir os pareceres com os dados oficiais.",
+    role: "Desenvolvo o sistema em dupla e sou autor de 54% dos commits (102 de 188).",
+    decisions: [
+      {
+        title: "O PNCP como fonte, não como referência.",
+        text: "Processos, itens, resultados e arquivos vêm do PNCP; promover um processo para licitação interna preenche objeto, valores, datas, modalidade e status equivalentes.",
+      },
+      {
+        title: "IA como revisora, não como autora.",
+        text: "A equipe redige o parecer a partir de modelos; a IA confere o texto com os dados oficiais do processo, aponta inconsistências e ajusta a linguagem.",
+      },
+      {
+        title: "Provedor plugável e chave protegida.",
+        text: "Cada prefeitura escolhe OpenAI ou Gemini e o modelo; a chave fica criptografada e nunca é exibida por completo, só os 4 últimos caracteres.",
+      },
+    ],
+    schematic: "sicoli",
+    schematicCaption: "Do PNCP ao parecer conferido. O código e as telas não são públicos.",
+  },
+  {
+    id: "atendimento-ia",
+    projectIds: ["project-22"],
+    title: "Atendimento por IA na central de chamados",
+    context: "Boeing & Rocha, projeto em equipe",
+    challenge:
+      "Responder rápido às dúvidas dos usuários do Controle Social e do IMASP sem ocupar a equipe de suporte com o que já está documentado.",
+    solution:
+      "Um assistente com Claude responde o chamado a partir dos manuais, com regras para não sair do escopo. Quando o manual não cobre, o cliente pede um atendente ou o assunto é sigiloso, o chamado passa para a equipe, avisada por e-mail.",
+    role: "Na integração, fiquei com a base de conhecimento: os manuais gerados com IA que o assistente consulta. No Controle Social são 110 artigos, com ajuda por tela, busca e capturas de tela geradas por script.",
+    decisions: [
+      {
+        title: "Base de conhecimento: manual como código.",
+        text: "Artigos em Markdown no repositório, um por pergunta; mudar o manual é commit, e um teste exige artigo para toda tela do sistema.",
+      },
+      {
+        title: "Base de conhecimento: capturas sem dado real.",
+        text: "As telas do manual são geradas por script sobre um cenário fictício, para não desatualizar nem vazar dado de cidadão.",
+      },
+      {
+        title: "Assistente: saída estruturada.",
+        text: "Cada resposta vem com o motivo de passar para a equipe (o manual não cobre, o cliente pediu ou o assunto é sigiloso). O texto do chamado e os manuais nunca vão para log.",
+      },
+      {
+        title: "Assistente: custo sob controle.",
+        text: "Há teto mensal de tokens. Depois de um incidente em produção, o limite por chamado passou a contar respostas, não tokens, porque o cache dos manuais inflava a conta.",
+      },
+    ],
+    schematic: "suporte",
+    schematicCaption: "Em vermelho, a parte que construí. O código e as telas não são públicos.",
+    screenshots: [
+      {
+        src: "/telas/social-manual.webp",
+        width: 1280,
+        height: 800,
+        alt: "Tela do Controle Social: manual do sistema com busca, filtro por perfil e artigos",
+        caption: "O manual dentro do Controle Social, com busca e filtro por perfil: é a base que o assistente consulta.",
+      },
+    ],
+  },
+  {
+    id: "examini",
+    projectIds: ["project-7"],
+    title: "Examini: sistema de auditorias públicas",
+    context: "Setor público",
+    challenge: "Organizar todas as etapas de uma auditoria pública, do planejamento ao controle final.",
+    solution:
+      "Uma plataforma para planejar, executar e controlar auditorias, com achados, anexos, permissões, notificações por e-mail e relatórios.",
+    role: "Desenvolvo o sistema em dupla e sou autor de 75% dos commits (318 de 422).",
+    schematic: "auditoria",
+    schematicCaption: "As três etapas que a plataforma cobre.",
+  },
+  {
+    id: "samucaflix",
+    projectIds: ["project-4", "project-5", "project-6"],
+    title: "SamucaFlix: plataforma de streaming em três partes",
+    description:
+      "Catálogo de vídeos dividido em três aplicações independentes: a API e o painel que administram o catálogo, e o portal onde o usuário assiste.",
+    context: "Projeto pessoal, código aberto",
+    challenge:
+      "Construir uma plataforma de streaming completa aplicando arquitetura de software, testes e integração contínua.",
+    solution:
+      "Uma API administrativa em Java com Spring Boot, um painel administrativo em React e um portal do usuário em Next.js.",
+    role: "Desenvolvi as três partes, todas com código aberto.",
+    decisions: [
+      {
+        title: "Domínio isolado.",
+        text: "A API segue Clean Architecture e DDD, com validações acumuladas pelo Notification Pattern em vez de exceções em cascata.",
+      },
+      {
+        title: "Testes guiando o código.",
+        text: "TDD com JUnit e Mockito, cobertura medida pelo JaCoCo e migrações versionadas com Flyway.",
+      },
+      {
+        title: "Responsabilidades fora da API.",
+        text: "Autenticação delegada ao Keycloak e mensageria com RabbitMQ; o painel é testado contra uma API simulada com Mock Service Worker.",
+      },
+    ],
+    cover: {
+      src: "/telas/samucaflix-portal.webp",
+      width: 1280,
+      height: 342,
+      alt: "Tela do portal SamucaFlix com o catálogo de filmes em destaque",
+      caption: "Portal do usuário (Next.js), publicado na Vercel.",
+    },
+    partLabels: {
+      "project-4": "API administrativa",
+      "project-5": "Painel administrativo",
+      "project-6": "Portal do usuário",
+    },
+  },
+  {
+    id: "contratos",
+    projectIds: ["project-2"],
+    context: "Boeing & Rocha, setor público",
+    challenge: "Acompanhar os prazos dos contratos públicos e reduzir o risco de inconformidade.",
+    solution: "Integração com o SIM-AM para sincronizar os dados dos contratos e alertas de prazo enviados por e-mail.",
+    role: "Criei a aplicação, incluindo a integração e as notificações.",
+    schematic: "contratos",
+    schematicCaption: "Esquema simplificado. O código e as telas não são públicos.",
+  },
+];
+
+/** Contexto mostrado na tabela "Outros projetos" */
+export const projectContexts: Record<string, string> = {
+  "project-1": "Boeing & Rocha",
+  "project-3": "Boeing & Rocha",
+  "project-8": "TCC, UTFPR",
+  "project-9": "Imersão Full Cycle 20",
+  "project-13": "Projeto pessoal",
+  "project-14": "Projeto pessoal",
+  "project-15": "MBA Full Cycle",
+  "project-16": "MBA Full Cycle",
+  "project-17": "MBA Full Cycle",
+  "project-18": "Projeto pessoal",
+  "project-19": "Projeto pessoal",
+  "project-20": "Desafio técnico",
+  "project-21": "Curso de TDD, Full Cycle",
+};
+
+// ---------------------------------------------------------------------------
+// Arquitetura dos sistemas em produção (visão de contêineres, estilo C4),
+// levantada do código: services, jobs, agendamentos, composer.json e package.json.
+// Sentido das ligações: "out" = do primeiro para o segundo; "in" = do segundo
+// para o primeiro; "both" = nos dois sentidos.
+// ---------------------------------------------------------------------------
+export const systemArchitectures: SystemArchitecture[] = [
+  {
+    id: "imasp",
+    name: "IMASP Saúde",
+    people: { title: "Equipe do IMASP", detail: "atendentes e administradores" },
+    client: { title: "Navegador", detail: "React 19, Inertia 3 e Tailwind 4" },
+    app: { title: "Laravel 13", detail: "cálculo de co-participação, aprovação de requisições e fechamento da competência" },
+    database: { title: "MariaDB", detail: "integridade referencial" },
+    worker: { kind: "Tarefa agendada", title: "Agendador", detail: "arquiva a trilha de auditoria todo dia às 3h" },
+    via: "app",
+    integrations: [
+      { id: "cbhpm", kind: "Arquivo importado", title: "Tabela CBHPM", detail: "procedimentos e portes", direction: "in" },
+      { id: "folha", kind: "Sistema externo", title: "Folha do RH", detail: "remessa imutável das parcelas; divergências calculadas ao vivo", direction: "out" },
+      { id: "pdf", kind: "Documento gerado", title: "PDFs assinados", detail: "com carimbo de assinatura", direction: "out" },
+    ],
+    edges: [
+      ["people", "client", "out"],
+      ["client", "app", "both"],
+      ["app", "database", "both"],
+      ["database", "worker", "in"],
+    ],
+    crossCutting: ["Trilha de auditoria (activitylog)", "Monitoramento com Laravel Pulse", "PHPUnit 12 e Larastan nível 6", "CI e deploy no GitHub Actions", "Docker"],
+  },
+  {
+    id: "social",
+    name: "Controle Social",
+    people: { title: "Equipes do SUAS", detail: "CRAS, CREAS e acolhimento" },
+    client: { title: "Navegador", detail: "React 19, Inertia 3 e Tailwind 4" },
+    app: { title: "Laravel 13", detail: "índice de vulnerabilidade, renda familiar e unificação de cadastros" },
+    database: { title: "MySQL", detail: "dados migrados do legado" },
+    worker: { kind: "Processamento assíncrono", title: "Fila e agendador", detail: "CadÚnico gravado às 22h, geocodificação em lotes, recálculos e backup" },
+    via: "worker",
+    integrations: [
+      { id: "cadunico", kind: "Arquivo importado", title: "CadÚnico", detail: "arquivo de até 256 MB", direction: "in" },
+      { id: "geo", kind: "Serviço externo", title: "Nominatim", detail: "quando o CNEFE do IBGE, consultado localmente, não acha o endereço", direction: "both" },
+      { id: "email", kind: "Serviço externo", title: "E-mail", detail: "links de senha e mensagens, em fila própria", direction: "out" },
+    ],
+    edges: [
+      ["people", "client", "out"],
+      ["client", "app", "both"],
+      ["app", "database", "both"],
+      ["app", "worker", "out"],
+      ["database", "worker", "both"],
+    ],
+    crossCutting: ["Trilha de auditoria", "Tempo real com Reverb (WebSocket)", "Backups agendados", "CI e deploy no GitHub Actions", "Docker"],
+  },
+  {
+    id: "sicoli",
+    name: "Sicoli",
+    people: { title: "Controle interno", detail: "licitação, controladoria e procuradoria" },
+    client: { title: "Navegador", detail: "React 18, Inertia e TypeScript" },
+    app: { title: "Laravel 10", detail: "status do processo, promoção de processos do PNCP e parecer a partir de modelo" },
+    database: { title: "MySQL", detail: "linha do tempo de cada processo" },
+    via: "app",
+    integrations: [
+      { id: "pncp", kind: "API pública", title: "PNCP", detail: "contratações, itens, resultados e arquivos", direction: "in" },
+      { id: "llm", kind: "Serviço externo", title: "OpenAI ou Gemini", detail: "confere o parecer com os dados oficiais", direction: "both" },
+      { id: "pdfs", kind: "Documento gerado", title: "PDFs do processo", detail: "impressão seletiva", direction: "out" },
+    ],
+    edges: [
+      ["people", "client", "out"],
+      ["client", "app", "both"],
+      ["app", "database", "both"],
+    ],
+    crossCutting: ["Chave de IA criptografada e mascarada", "Autenticação com Sanctum", "Deploy no GitHub Actions"],
   },
 ];
