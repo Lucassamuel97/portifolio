@@ -82,7 +82,8 @@ export function Timeline({ items, referencia }: { items: TimelineItem[]; referen
                 key={ano}
                 className={cn(
                   'absolute bottom-0 font-display text-rotulo text-tinta-3 tabular-nums largura-82',
-                  i === 0 ? '' : '-translate-x-1/2',
+                  // No celular o primeiro ano fica rente à margem, para não sair da tela
+                  i === 0 ? 'md:-translate-x-1/2' : '-translate-x-1/2',
                   i % 3 !== 0 && 'max-md:hidden'
                 )}
                 style={{ left: pct(new Date(Date.UTC(ano, 0, 1))) }}
@@ -94,8 +95,9 @@ export function Timeline({ items, referencia }: { items: TimelineItem[]; referen
         </div>
 
         <div className="relative">
-          {/* Linha do "hoje" sobre as trilhas */}
-          <div aria-hidden="true" className={cn('pointer-events-none absolute inset-0', COLUNAS)}>
+          {/* Linha do "hoje" sobre as trilhas. No celular os textos ocupam a largura toda,
+              então a marca aparece só dentro de cada trilha (ver abaixo). */}
+          <div aria-hidden="true" className={cn('pointer-events-none absolute inset-0 max-md:hidden', COLUNAS)}>
             <div className="relative h-full md:col-start-2">
               <span className="absolute inset-y-0 border-l-[1.5px] border-dashed border-revisao" style={{ left: pct(hoje) }}>
                 <span className="absolute -bottom-7 right-1.5 whitespace-nowrap font-display text-rotulo text-revisao largura-82">hoje</span>
@@ -129,6 +131,11 @@ export function Timeline({ items, referencia }: { items: TimelineItem[]; referen
                       style={trilha}
                     >
                       <span
+                        aria-hidden="true"
+                        className="absolute -inset-y-1 border-l-[1.5px] border-dashed border-revisao md:hidden"
+                        style={{ left: pct(hoje) }}
+                      />
+                      <span
                         className={cn(
                           'absolute top-1 h-3 origin-left transition-[transform,background-color] duration-[900ms] ease-prancha',
                           formacao
@@ -150,6 +157,15 @@ export function Timeline({ items, referencia }: { items: TimelineItem[]; referen
               })}
             </div>
           ))}
+
+          <div aria-hidden="true" className="relative h-6 md:hidden">
+            <span
+              className="absolute top-1 -translate-x-full whitespace-nowrap pr-1.5 font-display text-rotulo text-revisao largura-82"
+              style={{ left: pct(hoje) }}
+            >
+              hoje
+            </span>
+          </div>
         </div>
       </div>
 

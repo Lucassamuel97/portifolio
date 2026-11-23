@@ -28,7 +28,7 @@ export function Screenshots({ items }: { items: Screenshot[] }) {
               type="button"
               onClick={(e) => abrir(item, e.currentTarget)}
               aria-label={`Ampliar a tela: ${item.caption}`}
-              className="group block w-full cursor-zoom-in overflow-hidden border border-tinta/90 bg-papel-2"
+              className="block w-full cursor-zoom-in overflow-hidden border border-tinta/90 bg-papel-2 transition-colors duration-150 hover:border-revisao"
             >
               <Image
                 src={item.src}
@@ -36,7 +36,7 @@ export function Screenshots({ items }: { items: Screenshot[] }) {
                 width={item.width}
                 height={item.height}
                 sizes="(min-width: 1280px) 45vw, (min-width: 768px) 90vw, 100vw"
-                className="h-auto w-full transition-transform duration-700 ease-prancha group-hover:scale-[1.015]"
+                className="h-auto w-full"
               />
             </button>
             <figcaption className="max-w-[64ch] text-pequeno text-tinta-2">{item.caption}</figcaption>

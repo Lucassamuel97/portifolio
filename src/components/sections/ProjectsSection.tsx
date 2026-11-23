@@ -1,9 +1,13 @@
 import { Container, Section, SectionHeader } from '@/components/layout/Container';
-import { CaseStudy, linksDoProjeto } from '@/components/sections/CaseStudy';
+import { CaseStudy, CaseStudyCompact, linksDoProjeto } from '@/components/sections/CaseStudy';
 import { caseStudies, projectContexts, projects } from '@/lib/data';
+
+// Os primeiros casos aparecem inteiros; os demais ficam resumidos e abrem ao toque.
+const CASOS_ABERTOS = 3;
 
 export const ProjectsSection = () => {
   const porId = new Map(projects.map((p) => [p.id, p]));
+  const projetosDe = (ids: string[]) => ids.map((id) => porId.get(id)).filter((p): p is NonNullable<typeof p> => Boolean(p));
   const emDestaque = new Set(caseStudies.flatMap((c) => c.projectIds));
   const outros = projects
     .filter((p) => !emDestaque.has(p.id))
@@ -20,13 +24,18 @@ export const ProjectsSection = () => {
           intro="Sistemas em produção no setor público, cujo código é privado, e projetos de estudo com código aberto."
         />
         <div>
-          {caseStudies.map((caso) => (
-            <CaseStudy
-              key={caso.id}
-              data={caso}
-              projects={caso.projectIds.map((id) => porId.get(id)).filter((p): p is NonNullable<typeof p> => Boolean(p))}
-            />
+          {caseStudies.slice(0, CASOS_ABERTOS).map((caso) => (
+            <CaseStudy key={caso.id} data={caso} projects={projetosDe(caso.projectIds)} />
           ))}
+        </div>
+
+        <div>
+          <h3 className="mb-4 font-display text-grande font-[680] largura-106">Mais casos</h3>
+          <div className="border-t-[1.5px] border-tinta/90">
+            {caseStudies.slice(CASOS_ABERTOS).map((caso) => (
+              <CaseStudyCompact key={caso.id} data={caso} projects={projetosDe(caso.projectIds)} />
+            ))}
+          </div>
         </div>
 
         <div className="mt-16">

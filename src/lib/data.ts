@@ -42,6 +42,7 @@ export const navigationItems: NavigationItem[] = [
   { label: "Sobre", href: "#sobre" },
   { label: "Tecnologias", href: "#tecnologias" },
   { label: "Trajetória", href: "#trajetoria" },
+  { label: "Formação", href: "#formacao" },
   { label: "Contato", href: "#contato" },
 ];
 
@@ -147,7 +148,7 @@ export const education: Education[] = [
 export const experiences: Experience[] = [
   {
     id: "1",
-    title: "Full-stack Developer",
+    title: "Desenvolvedor full-stack",
     company: "Boeing & Rocha",
     companyUrl: "",
     location: "Palmital, Paraná, Brasil",
@@ -158,20 +159,12 @@ export const experiences: Experience[] = [
     description:
       "Desenvolvedor Full-stack com experiência no desenvolvimento de ponta a ponta de sistemas de gestão para o setor público. Especializado no ecossistema PHP (PHP puro, Laravel, CodeIgniter) e tecnologias front-end (JavaScript, jQuery, Bootstrap, Tailwind, Next.js) para criar soluções que modernizam e automatizam processos.",
     responsibilities: [
-      "Responsável pelo levantamento de requisitos, desenvolvimento, manutenção de sistemas legados e suporte ao usuário final",
-      "Desenvolvimento de sistemas de gestão para a Assistência Social que centralizam dados de múltiplas unidades",
-      "Automação da geração de relatórios mensais (RMA) e implementação de visualização de dados com georreferenciamento",
-      "Criação de aplicação para monitoramento de contratos públicos que automatizou o acompanhamento de prazos",
-      "Integração com SIM-AM e implementação de notificações por e-mail para reduzir riscos de inconformidade",
-      "Manutenção e evolução de sistema para postos de saúde, implementando novos módulos (agendamento, estoque)",
-      "Garantia da escalabilidade do projeto ao seguir a arquitetura HMVC",
+      "Levantamento de requisitos, desenvolvimento, manutenção de sistemas legados e suporte ao usuário final",
       "Reescrita de sistemas legados (PHP sem framework, MyISAM/latin1) em Laravel 13, React 19 e Inertia.js, com integridade referencial, trilha de auditoria, testes automatizados e Docker",
-      "Desenvolvimento do IMASP Saúde: beneficiários, convênios, requisições com fluxo de aprovação rastreável e cálculo automático de co-participação",
-      "Desenvolvimento do novo Controle Social (SUAS): atendimentos, famílias, benefícios eventuais, oficinas, índice de vulnerabilidade e importação do CadÚnico",
-      "Migração dos dados dos sistemas legados para as novas bases, com importadores dedicados",
-      "Desenvolvimento do Sicoli, produto da Boeing & Rocha para controle interno de licitações, com integração ao PNCP e pareceres validados por IA (OpenAI e Gemini)",
-      "Desenvolvimento do Examini, plataforma de auditorias públicas com gestão de achados, anexos, permissões, notificações por e-mail e relatórios",
-      "Manuais do Controle Social e do IMASP gerados com IA (110 artigos em Markdown no Social, ajuda por tela, busca e capturas de tela geradas por script), usados como base de conhecimento do atendimento por IA da central de chamados",
+      "IMASP Saúde e novo Controle Social (SUAS), incluindo a migração dos dados legados com importadores dedicados",
+      "Sicoli, para controle interno de licitações com integração ao PNCP e pareceres validados por IA, e Examini, plataforma de auditorias públicas",
+      "Sistemas anteriores para Assistência Social, postos de saúde e contratos públicos: relatórios mensais (RMA) automatizados, georreferenciamento, integração com o SIM-AM e alertas de prazo por e-mail",
+      "Manuais do Controle Social e do IMASP gerados com IA, usados como base de conhecimento do atendimento por IA da central de chamados",
     ],
     technologies: [
       "PHP",
@@ -1559,10 +1552,6 @@ export const caseStudies: CaseStudy[] = [
       {
         title: "Uma fonte só para cada regra.",
         text: "A co-participação é progressiva por titular no mês civil (30%, 50% e 70%), calculada pelo sistema e sobrescrita apenas por administrador.",
-      },
-      {
-        title: "Performance com critério.",
-        text: "Uma auditoria com 31 achados conferidos no código; filas foram descartadas onde não se pagavam (DMED, IR, carteirinha) e o Redis ficou para depois, porque o servidor não tem.",
       },
     ],
     schematic: "imasp",

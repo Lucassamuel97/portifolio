@@ -2,18 +2,21 @@ import { Container, Section, SectionHeader } from '@/components/layout/Container
 import { skills } from '@/lib/data';
 import { cn } from '@/lib/utils';
 
-// Agrupamento por área de atuação (os nomes batem com `skills` em src/lib/data.ts)
+// Seleção das tecnologias que aparecem nos sistemas e projetos da página, por área de atuação.
+// Os nomes batem com `skills` em src/lib/data.ts, que guarda o inventário completo.
 const GRUPOS: [string, string[]][] = [
-  ['Back-end', ['PHP', 'Laravel', 'CodeIgniter', 'Java', 'Spring Boot', 'Python', 'Node.js', 'Express.js', 'Composer']],
-  ['Front-end', ['JavaScript', 'TypeScript', 'React', 'Inertia.js', 'Next.js', 'jQuery', 'Tailwind CSS', 'Bootstrap', 'HTML5', 'CSS3', 'Sass/SCSS', 'Material UI', 'Vue.js']],
-  ['Inteligência artificial', ['Prompt Engineering', 'Agentes de IA', 'Claude Code', 'RAG (Retrieval-Augmented Generation)', 'APIs de LLM (OpenAI e Gemini)', 'Embeddings e busca semântica', 'MCP (Model Context Protocol)', 'LangChain', 'pgVector', 'LangSmith']],
-  ['Arquitetura e qualidade', ['Clean Architecture', 'DDD', 'SOLID Principles', 'Microservices', 'API Gateway', 'PHPUnit', 'Jest']],
-  ['Banco de dados', ['MySQL', 'SQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Firebase']],
-  ['Integrações e mensageria', ['REST APIs', 'RabbitMQ', 'GraphQL']],
-  ['Infraestrutura e entrega', ['Linux', 'Docker', 'GitHub Actions', 'CI/CD', 'Apache', 'Nginx', 'AWS', 'Travis CI']],
-  ['Mobile', ['Ionic', 'Flutter']],
-  ['Ferramentas', ['Git', 'Visual Studio Code', 'Postman', 'Swagger', 'Trello', 'Cursor', 'Figma', 'ESLint', 'Prettier', 'Webpack', 'Vite']],
+  ['Back-end', ['PHP', 'Laravel', 'CodeIgniter', 'Java', 'Spring Boot']],
+  ['Front-end', ['JavaScript', 'TypeScript', 'React', 'Inertia.js', 'Next.js', 'Tailwind CSS']],
+  ['Inteligência artificial', ['RAG (Retrieval-Augmented Generation)', 'APIs de LLM (OpenAI e Gemini)', 'Agentes de IA', 'Claude Code', 'MCP (Model Context Protocol)']],
+  ['Arquitetura e qualidade', ['Clean Architecture', 'DDD', 'SOLID Principles', 'PHPUnit']],
+  ['Dados e integrações', ['MySQL', 'PostgreSQL', 'REST APIs', 'RabbitMQ']],
+  ['Infraestrutura e entrega', ['Linux', 'Docker', 'GitHub Actions', 'Git']],
 ];
+
+// Em destaque: nível alto e pelo menos dois anos de uso.
+const NIVEL_DESTAQUE = 85;
+const ANOS_DESTAQUE = 2;
+const anosDeUso = (experiencia: string) => Number(/^(\d+) anos?$/.exec(experiencia)?.[1] ?? 0);
 
 const NOME_EXIBIDO: Record<string, string> = {
   'SOLID Principles': 'SOLID',
@@ -23,16 +26,12 @@ const NOME_EXIBIDO: Record<string, string> = {
 
 export const SkillsSection = () => {
   const porNome = new Map(skills.map((s) => [s.name, s]));
-  const agrupadas = new Set(GRUPOS.flatMap(([, nomes]) => nomes));
-  const sobra = skills.filter((s) => !agrupadas.has(s.name)).map((s) => s.name);
-  const grupos = sobra.length ? [...GRUPOS, ['Outras', sobra] as [string, string[]]] : GRUPOS;
-
   return (
     <Section id="tecnologias" titleId="tecnologias-titulo">
       <Container>
-        <SectionHeader id="tecnologias-titulo" title="Tecnologias" intro="Em destaque, as que domino melhor. Ao lado de cada uma, o tempo de uso." />
+        <SectionHeader id="tecnologias-titulo" title="Tecnologias" intro="As que uso nos sistemas e projetos desta página. Em destaque, as que domino melhor; ao lado de cada uma, o tempo de uso." />
         <dl>
-          {grupos.map(([grupo, nomes], i) => (
+          {GRUPOS.map(([grupo, nomes], i) => (
             <div
               key={grupo}
               className={cn(
@@ -48,7 +47,7 @@ export const SkillsSection = () => {
                   .map((s) => (
                     <span
                       key={s.id}
-                      className={cn('font-display text-medio', s.level >= 85 ? 'font-[650] text-tinta' : 'text-tinta-2')}
+                      className={cn('font-display text-medio', s.level >= NIVEL_DESTAQUE && anosDeUso(s.experience) >= ANOS_DESTAQUE ? 'font-[650] text-tinta' : 'text-tinta-2')}
                     >
                       {NOME_EXIBIDO[s.name] ?? s.name}
                       <span className="ml-1 whitespace-nowrap align-[0.55em] font-sans text-[0.72rem] font-medium text-tinta-3">

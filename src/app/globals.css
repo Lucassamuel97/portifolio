@@ -63,6 +63,8 @@
   /* Rótulo técnico: letreiro estreito, como em legenda de prancha */
   .rotulo {
     @apply font-display text-rotulo font-medium tracking-[0.01em] text-tinta-3 largura-82;
+    /* O espaço entre palavras da Archivo estreita fica curto demais em corpo pequeno */
+    word-spacing: 0.08em;
   }
 
   /* Quadrícula do papel de desenho, atrás de diagramas e esquemas */

@@ -9,7 +9,7 @@ const COMMITS_12_MESES = '2.765';
 
 // Componente de servidor: os números são calculados no build, a partir de src/lib/data.ts.
 export const AboutSection = () => {
-  const inicio = experiences.find((e) => e.title === 'Full-stack Developer')?.period.start ?? new Date('2018-03-01');
+  const inicio = experiences.find((e) => e.title === 'Desenvolvedor full-stack')?.period.start ?? new Date('2018-03-01');
   const anos = Math.floor((Date.now() - inicio.getTime()) / (365.25 * 864e5));
   const graduacoes = education.filter((e) => e.degree.startsWith('Tecnólogo')).length;
   const mbaEmAndamento = education.some((e) => e.degree.startsWith('MBA') && e.period.end && e.period.end.getTime() > Date.now());

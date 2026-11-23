@@ -11,23 +11,23 @@ const Svg = ({ label, altura = 196, children }: { label: string; altura?: number
 
 function Imasp() {
   return (
-    <Svg label="Esquema: requisição, aprovação, co-participação calculada e parcelas na folha, com trilha de auditoria em todas as etapas">
-      <rect className="fio fio--tracejado" x="4" y="6" width="312" height="150" />
-      <rect className="caixa" x="16" y="20" width="124" height="42" />
+    <Svg label="Esquema: requisição, aprovação, co-participação calculada e parcelas na folha, com trilha de auditoria em todas as etapas" altura={204}>
+      <rect className="fio fio--tracejado" x="4" y="6" width="312" height="164" />
+      <rect className="caixa" x="16" y="20" width="124" height="50" />
       <text className="texto texto--fino" x="24" y="36">1</text>
-      <text className="texto" x="78" y="46" textAnchor="middle">Requisição</text>
-      <rect className="caixa" x="180" y="20" width="124" height="42" />
+      <text className="texto" x="78" y="59" textAnchor="middle">Requisição</text>
+      <rect className="caixa" x="180" y="20" width="124" height="50" />
       <text className="texto texto--fino" x="188" y="36">2</text>
-      <text className="texto" x="242" y="46" textAnchor="middle">Aprovação</text>
-      <rect className="caixa caixa--revisao" x="180" y="98" width="124" height="42" />
-      <text className="texto texto--fino" x="188" y="114">3</text>
-      <text className="texto" x="242" y="124" textAnchor="middle">Co-participação</text>
-      <rect className="caixa" x="16" y="98" width="124" height="42" />
-      <text className="texto texto--fino" x="24" y="114">4</text>
-      <text className="texto" x="78" y="124" textAnchor="middle">Parcelas na folha</text>
-      <path className="fio" d="M140 41 H174 M242 62 V92 M180 119 H146" />
-      <path className="ponta" d="M180 41 l-7 -4 v8 z M242 98 l-4 -7 h8 z M140 119 l7 -4 v8 z" />
-      <text className="texto texto--fino" x="10" y="180">tracejado: trilha de auditoria em todas as etapas</text>
+      <text className="texto" x="242" y="59" textAnchor="middle">Aprovação</text>
+      <rect className="caixa caixa--revisao" x="180" y="106" width="124" height="50" />
+      <text className="texto texto--fino" x="188" y="122">3</text>
+      <text className="texto" x="242" y="145" textAnchor="middle">Co-participação</text>
+      <rect className="caixa" x="16" y="106" width="124" height="50" />
+      <text className="texto texto--fino" x="24" y="122">4</text>
+      <text className="texto" x="78" y="145" textAnchor="middle">Parcelas na folha</text>
+      <path className="fio" d="M140 45 H174 M242 70 V100 M180 131 H146" />
+      <path className="ponta" d="M180 45 l-7 -4 v8 z M242 106 l-4 -7 h8 z M140 131 l7 -4 v8 z" />
+      <text className="texto texto--fino" x="10" y="192">tracejado: trilha de auditoria em todas as etapas</text>
     </Svg>
   );
 }
@@ -35,25 +35,25 @@ function Imasp() {
 function Social() {
   return (
     <Svg label="Esquema: o legado passa por importadores até a nova base; o CadÚnico entra por uma fila">
-      <rect className="caixa" x="8" y="18" width="104" height="62" />
-      <text className="texto" x="60" y="40" textAnchor="middle">Legado</text>
-      <text className="texto texto--fino" x="60" y="56" textAnchor="middle">PHP 5.6</text>
-      <text className="texto texto--fino" x="60" y="70" textAnchor="middle">101 tabelas, 0 FKs</text>
-      <rect className="caixa caixa--revisao" x="128" y="32" width="74" height="34" />
-      <text className="texto texto--fino" x="165" y="53" textAnchor="middle">importadores</text>
-      <rect className="caixa caixa--forte" x="218" y="18" width="94" height="62" />
-      <text className="texto" x="265" y="40" textAnchor="middle">Nova base</text>
-      <text className="texto texto--fino" x="265" y="56" textAnchor="middle">Laravel 13</text>
-      <text className="texto texto--fino" x="265" y="70" textAnchor="middle">chaves e auditoria</text>
-      <path className="fio" d="M112 49 H122 M202 49 H212" />
-      <path className="ponta" d="M128 49 l-6 -4 v8 z M218 49 l-6 -4 v8 z" />
-      <rect className="caixa" x="8" y="122" width="104" height="34" />
-      <text className="texto" x="60" y="143" textAnchor="middle">CadÚnico</text>
-      <rect className="caixa caixa--revisao" x="128" y="122" width="74" height="34" />
-      <text className="texto texto--fino" x="165" y="143" textAnchor="middle">fila (22h)</text>
-      <path className="fio" d="M112 139 H122 M202 139 H265 V86" />
-      <path className="ponta" d="M128 139 l-6 -4 v8 z M265 80 l-4 7 h8 z" />
-      <text className="texto texto--fino" x="8" y="184">em vermelho: o caminho da migração</text>
+      <rect className="caixa" x="6" y="18" width="104" height="62" />
+      <text className="texto" x="58" y="40" textAnchor="middle">Legado</text>
+      <text className="texto texto--fino" x="58" y="56" textAnchor="middle">PHP 5.6</text>
+      <text className="texto texto--fino" x="58" y="70" textAnchor="middle">101 tabelas, 0 FKs</text>
+      <rect className="caixa caixa--revisao" x="122" y="32" width="88" height="34" />
+      <text className="texto texto--fino" x="166" y="53" textAnchor="middle">importadores</text>
+      <rect className="caixa caixa--forte" x="222" y="18" width="92" height="62" />
+      <text className="texto" x="268" y="40" textAnchor="middle">Nova base</text>
+      <text className="texto texto--fino" x="268" y="56" textAnchor="middle">Laravel 13</text>
+      <text className="texto texto--fino" x="268" y="70" textAnchor="middle">FKs e auditoria</text>
+      <path className="fio" d="M110 49 H116 M210 49 H216" />
+      <path className="ponta" d="M122 49 l-6 -4 v8 z M222 49 l-6 -4 v8 z" />
+      <rect className="caixa" x="6" y="122" width="104" height="34" />
+      <text className="texto" x="58" y="143" textAnchor="middle">CadÚnico</text>
+      <rect className="caixa caixa--revisao" x="122" y="122" width="88" height="34" />
+      <text className="texto texto--fino" x="166" y="143" textAnchor="middle">fila (22h)</text>
+      <path className="fio" d="M110 139 H116 M210 139 H268 V86" />
+      <path className="ponta" d="M122 139 l-6 -4 v8 z M268 80 l-4 7 h8 z" />
+      <text className="texto texto--fino" x="6" y="184">em vermelho: o caminho da migração</text>
     </Svg>
   );
 }
@@ -75,7 +75,7 @@ function Sicoli() {
       <text className="texto texto--fino" x="254" y="157" textAnchor="middle">OpenAI ou Gemini</text>
       <path className="fio fio--tracejado" d="M156 56 V144 H190" />
       <path className="ponta" d="M196 144 l-6 -4 v8 z" />
-      <text className="texto texto--fino" x="104" y="138">dados oficiais</text>
+      <text className="texto texto--fino" x="148" y="138" textAnchor="end">dados oficiais</text>
       <path className="fio" d="M272 56 V116" />
       <path className="ponta" d="M272 56 l-4 7 h8 z M272 122 l-4 -7 h8 z" />
       <text className="texto texto--fino" x="278" y="94">ajusta</text>
@@ -119,14 +119,14 @@ function Auditoria() {
   return (
     <Svg label="Esquema: as três etapas da auditoria, planejamento, execução e controle" altura={140}>
       <rect className="caixa" x="6" y="44" width="92" height="44" />
-      <text className="texto texto--fino" x="14" y="62">1</text>
-      <text className="texto" x="52" y="75" textAnchor="middle">Planejar</text>
+      <text className="texto texto--fino" x="14" y="59">1</text>
+      <text className="texto" x="52" y="79" textAnchor="middle">Planejar</text>
       <rect className="caixa" x="114" y="44" width="92" height="44" />
-      <text className="texto texto--fino" x="122" y="62">2</text>
-      <text className="texto" x="160" y="75" textAnchor="middle">Executar</text>
+      <text className="texto texto--fino" x="122" y="59">2</text>
+      <text className="texto" x="160" y="79" textAnchor="middle">Executar</text>
       <rect className="caixa caixa--revisao" x="222" y="44" width="92" height="44" />
-      <text className="texto texto--fino" x="230" y="62">3</text>
-      <text className="texto" x="268" y="75" textAnchor="middle">Controlar</text>
+      <text className="texto texto--fino" x="230" y="59">3</text>
+      <text className="texto" x="268" y="79" textAnchor="middle">Controlar</text>
       <path className="fio" d="M98 66 H112 M206 66 H220" />
       <path className="marca-revisao" d="M114 66 l-6 -4 v8 z M222 66 l-6 -4 v8 z" />
     </Svg>
